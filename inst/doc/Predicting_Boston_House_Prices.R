@@ -86,11 +86,11 @@ model_frame %>%
 ## ---- echo = F, eval=TRUE-----------------------------------------------------
 library(kableExtra)
 tbl <- data.frame(
-  `Best subset` = c("Exhaustive search (`leaps`)", "Forward selection (`leaps`)", "Backward selection (`leaps`)", ""),
-  `L2/L2 penalized` = c("Lasso (`glmnet`)", "Ridge (`glmnet`)", "ElasticNet (`glmnet`)", "Adaptive Lasso (`glmnet`)"),
+  `Best subset` = c("Exhaustive search (`leaps`)", "Forward selection (`leaps`)", "Backward selection (`leaps`)", "Sequential Replacement (`leaps`)"),
+  `L1/L2 penalized` = c("Lasso (`glmnet`)", "Ridge (`glmnet`)", "ElasticNet (`glmnet`)", "Adaptive Lasso (`glmnet`)"),
   `Latent factors` = c("Principal components regression (`pls`)", "Partial least squares (`pls`)", "", ""),
-  `Iterative` = c("Gradient Boosting (`mboost`)", "Hierarchical feature regression (`hfr`)", "", ""),
-  `Bayesian` = c("Bayesian regression (`arm`)", "", "", ""),
+  `Machine Learning` = c("Gradient Boosting (`mboost`)", "Hierarchical feature regression (`hfr`)", "Support vector regression (`e1071`)", ""),
+  `Bayesian` = c("Bayesian regression (`arm`)", "Bayesian model averaging (`BMS`)", "", ""),
   check.names = F
 )
 kbl(tbl, align = "ccccc") %>% 
@@ -102,17 +102,20 @@ kbl(tbl, align = "ccccc") %>%
 #    regress(medv ~ .*.,
 #            OLS = m("lm"),
 #            BAYES = m("bayes"),
+#            BMA = m("bma", iter = 5000),
+#            SEQREP = m("subset", method = "seqrep", IC = "AIC"),
 #            `FORWARD SELECTION` = m("subset", method = "forward", IC = "AIC"),
 #            `BACKWARD SELECTION` = m("subset", method = "backward", IC = "AIC"),
 #            LASSO = m("lasso"),
 #            RIDGE = m("ridge"),
 #            ELASTICNET = m("enet"),
-#            ADALASSO = m("adalasso"),
+#            ADALASSO = m("adalasso", lambda_ridge = c(0.001, 0.01, 0.1)),
 #            PCR = m("pcr"),
 #            PLSR = m("plsr"),
 #            HFR = m("hfr"),
 #            `GRADIENT BOOSTING` = m("boost"),
-#            .cv = "vfold", .cv_args = list(v = 10))
+#            SVR = m("svm"),
+#            .cv = "vfold_cv", .cv_args = list(v = 10))
 
 ## -----------------------------------------------------------------------------
 #  eval_frame <- model_frame_all %>%

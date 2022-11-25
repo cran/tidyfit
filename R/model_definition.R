@@ -31,31 +31,19 @@ model_definition <- R6::R6Class(
     },
     fit = function(...) {private$fit_(self, ...)},
     predict = function(data) {
-      all_args <- append(append(
-        list(object = self$object, data = data, formula = self$formula, inner_grid = self$inner_grid, mode = self$mode),
-        self$args), self$fit_info
-      )
+      all_args <- list(object = self$object, data = data, self = self)
       do.call(.predict, all_args)
     },
     coef = function(...) {
-      all_args <- append(append(
-        list(object = self$object, formula = self$formula, inner_grid = self$inner_grid, mode = self$mode),
-        self$args), self$fit_info
-      )
+      all_args <- list(object = self$object, self = self)
       do.call(.coef, all_args)
     },
     resid = function(...) {
-      all_args <- append(append(
-        list(object = self$object, formula = self$formula, inner_grid = self$inner_grid, mode = self$mode),
-        self$args), self$fit_info
-      )
+      all_args <- list(object = self$object, self = self)
       do.call(.resid, all_args)
     },
     fitted = function(...) {
-      all_args <- append(append(
-        list(object = self$object, formula = self$formula, inner_grid = self$inner_grid, mode = self$mode),
-        self$args), self$fit_info
-      )
+      all_args <- list(object = self$object, self = self)
       do.call(.fitted, all_args)
     },
     print = function(...) {
@@ -91,7 +79,7 @@ model_definition <- R6::R6Class(
 .store_on_self <- function(self, model) {
   self$object <- model$result$result
   self$error <- model$error[[1]]
-  if (length(model$result$messages)>0) self$messages <- model$result$messages
-  if (length(model$result$warnings)>0) self$warnings <- model$result$warnings
+  if (length(model$result$messages)>0) self$messages <- paste(model$result$messages, collapse = " | ")
+  if (length(model$result$warnings)>0) self$warnings <- paste(model$result$warnings, collapse = " | ")
   invisible(self)
 }

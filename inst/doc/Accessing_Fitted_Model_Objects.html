@@ -362,12 +362,12 @@ shrinkage:</p>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(settings)</span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>mod_frame</span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 4 × 6</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   model estimator   `size (MB)` grid_id  model_object kappa_grid</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt;             &lt;dbl&gt; &lt;chr&gt;    &lt;list&gt;            &lt;dbl&gt;</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 hfr   hfr::cv.hfr        1.71 #001|001 &lt;tidyFit&gt;          0.25</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 hfr   hfr::cv.hfr        1.71 #001|002 &lt;tidyFit&gt;          0.5 </span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 hfr   hfr::cv.hfr        1.71 #001|003 &lt;tidyFit&gt;          0.75</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 hfr   hfr::cv.hfr        1.71 #001|004 &lt;tidyFit&gt;          1</span></span></code></pre></div>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   model estimator_fct `size (MB)` grid_id  model_object kappa_grid</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt;               &lt;dbl&gt; &lt;chr&gt;    &lt;list&gt;            &lt;dbl&gt;</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 hfr   hfr::cv.hfr          1.71 #001|001 &lt;tidyFit&gt;          0.25</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 hfr   hfr::cv.hfr          1.71 #001|002 &lt;tidyFit&gt;          0.5 </span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 hfr   hfr::cv.hfr          1.71 #001|003 &lt;tidyFit&gt;          0.75</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 hfr   hfr::cv.hfr          1.71 #001|004 &lt;tidyFit&gt;          1</span></span></code></pre></div>
 <p><code>kappa_grid</code> defines the extent of shrinkage, with
 <code>kappa = 1</code> equal to an unregularized least squares (OLS)
 regression, and <code>kappa = 0.25</code> representing a regression
@@ -401,12 +401,12 @@ object using <code>...$object</code>:</p>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">mod =</span> <span class="fu">map</span>(model_object, <span class="sc">~</span>.<span class="sc">$</span>object))</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>mod_frame</span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 4 × 7</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   model estimator   `size (MB)` grid_id  model_object kappa_grid mod     </span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt;             &lt;dbl&gt; &lt;chr&gt;    &lt;list&gt;            &lt;dbl&gt; &lt;list&gt;  </span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 hfr   hfr::cv.hfr        1.71 #001|001 &lt;tidyFit&gt;          0.25 &lt;cv.hfr&gt;</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 hfr   hfr::cv.hfr        1.71 #001|002 &lt;tidyFit&gt;          0.5  &lt;cv.hfr&gt;</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 hfr   hfr::cv.hfr        1.71 #001|003 &lt;tidyFit&gt;          0.75 &lt;cv.hfr&gt;</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 hfr   hfr::cv.hfr        1.71 #001|004 &lt;tidyFit&gt;          1    &lt;cv.hfr&gt;</span></span></code></pre></div>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   model estimator_fct `size (MB)` grid_id  model_object kappa_grid mod     </span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt;               &lt;dbl&gt; &lt;chr&gt;    &lt;list&gt;            &lt;dbl&gt; &lt;list&gt;  </span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 hfr   hfr::cv.hfr          1.71 #001|001 &lt;tidyFit&gt;          0.25 &lt;cv.hfr&gt;</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 hfr   hfr::cv.hfr          1.71 #001|002 &lt;tidyFit&gt;          0.5  &lt;cv.hfr&gt;</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 hfr   hfr::cv.hfr          1.71 #001|003 &lt;tidyFit&gt;          0.75 &lt;cv.hfr&gt;</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 hfr   hfr::cv.hfr          1.71 #001|004 &lt;tidyFit&gt;          1    &lt;cv.hfr&gt;</span></span></code></pre></div>
 <p>Now there is a column with <code>cv.hfr</code> objects. This is
 useful, when we want to perform any analysis not directly implemented in
 the <code>tidyFit</code> generics.</p>

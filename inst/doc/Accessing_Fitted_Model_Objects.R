@@ -14,7 +14,7 @@ library(tidyfit)   # Auto-ML modeling
 ## -----------------------------------------------------------------------------
 data <- MASS::Boston
 mod_frame <- data %>% 
-  regress(medv ~ ., m("hfr", kappa_grid = c(0.25, 0.5, 0.75, 1))) %>% 
+  regress(medv ~ ., m("hfr", kappa = c(0.25, 0.5, 0.75, 1))) %>% 
   unnest(settings)
 mod_frame
 
@@ -23,7 +23,7 @@ mod_frame$model_object[[1]]
 
 ## ---- fig.width=7, fig.height=6, fig.align='center'---------------------------
 mod_frame %>% 
-  filter(kappa_grid == 1) %>% 
+  filter(kappa == 1) %>% 
   pull(model_object) %>% 
   .[[1]] %>% 
   plot(kappa = 1)
@@ -40,8 +40,8 @@ old_par <- par()
 par(mfrow = c(2, 2))
 par(family = "sans", cex = 0.7)
 mod_frame %>% 
-  arrange(desc(kappa_grid)) %>% 
-  select(model_object, kappa_grid) %>% 
+  arrange(desc(kappa)) %>% 
+  select(model_object, kappa) %>% 
   pwalk(~plot(.x, kappa = .y, 
               max_leaf_size = 2, 
               show_details = FALSE))

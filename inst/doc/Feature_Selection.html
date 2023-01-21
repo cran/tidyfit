@@ -3,199 +3,79 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
-<title>Feature selection algorithms</title>
+<title>Feature Selection</title>
 
-<script type="text/javascript">
-window.onload = function() {
-  var imgs = document.getElementsByTagName('img'), i, img;
-  for (i = 0; i < imgs.length; i++) {
-    img = imgs[i];
-    // center an image if it is the only element of its parent
-    if (img.parentElement.childElementCount === 1)
-      img.parentElement.style.textAlign = 'center';
-  }
-};
-</script>
-
-<!-- Styles for R syntax highlighter -->
-<style type="text/css">
-   pre .operator,
-   pre .paren {
-     color: rgb(104, 118, 135)
-   }
-
-   pre .literal {
-     color: #990073
-   }
-
-   pre .number {
-     color: #099;
-   }
-
-   pre .comment {
-     color: #998;
-     font-style: italic
-   }
-
-   pre .keyword {
-     color: #900;
-     font-weight: bold
-   }
-
-   pre .identifier {
-     color: rgb(0, 0, 0);
-   }
-
-   pre .string {
-     color: #d14;
-   }
-</style>
-
-<!-- R syntax highlighter -->
-<script type="text/javascript">
-var hljs=new function(){function m(p){return p.replace(/&/gm,"&amp;").replace(/</gm,"&lt;")}function f(r,q,p){return RegExp(q,"m"+(r.cI?"i":"")+(p?"g":""))}function b(r){for(var p=0;p<r.childNodes.length;p++){var q=r.childNodes[p];if(q.nodeName=="CODE"){return q}if(!(q.nodeType==3&&q.nodeValue.match(/\s+/))){break}}}function h(t,s){var p="";for(var r=0;r<t.childNodes.length;r++){if(t.childNodes[r].nodeType==3){var q=t.childNodes[r].nodeValue;if(s){q=q.replace(/\n/g,"")}p+=q}else{if(t.childNodes[r].nodeName=="BR"){p+="\n"}else{p+=h(t.childNodes[r])}}}if(/MSIE [678]/.test(navigator.userAgent)){p=p.replace(/\r/g,"\n")}return p}function a(s){var r=s.className.split(/\s+/);r=r.concat(s.parentNode.className.split(/\s+/));for(var q=0;q<r.length;q++){var p=r[q].replace(/^language-/,"");if(e[p]){return p}}}function c(q){var p=[];(function(s,t){for(var r=0;r<s.childNodes.length;r++){if(s.childNodes[r].nodeType==3){t+=s.childNodes[r].nodeValue.length}else{if(s.childNodes[r].nodeName=="BR"){t+=1}else{if(s.childNodes[r].nodeType==1){p.push({event:"start",offset:t,node:s.childNodes[r]});t=arguments.callee(s.childNodes[r],t);p.push({event:"stop",offset:t,node:s.childNodes[r]})}}}}return t})(q,0);return p}function k(y,w,x){var q=0;var z="";var s=[];function u(){if(y.length&&w.length){if(y[0].offset!=w[0].offset){return(y[0].offset<w[0].offset)?y:w}else{return w[0].event=="start"?y:w}}else{return y.length?y:w}}function t(D){var A="<"+D.nodeName.toLowerCase();for(var B=0;B<D.attributes.length;B++){var C=D.attributes[B];A+=" "+C.nodeName.toLowerCase();if(C.value!==undefined&&C.value!==false&&C.value!==null){A+='="'+m(C.value)+'"'}}return A+">"}while(y.length||w.length){var v=u().splice(0,1)[0];z+=m(x.substr(q,v.offset-q));q=v.offset;if(v.event=="start"){z+=t(v.node);s.push(v.node)}else{if(v.event=="stop"){var p,r=s.length;do{r--;p=s[r];z+=("</"+p.nodeName.toLowerCase()+">")}while(p!=v.node);s.splice(r,1);while(r<s.length){z+=t(s[r]);r++}}}}return z+m(x.substr(q))}function j(){function q(x,y,v){if(x.compiled){return}var u;var s=[];if(x.k){x.lR=f(y,x.l||hljs.IR,true);for(var w in x.k){if(!x.k.hasOwnProperty(w)){continue}if(x.k[w] instanceof Object){u=x.k[w]}else{u=x.k;w="keyword"}for(var r in u){if(!u.hasOwnProperty(r)){continue}x.k[r]=[w,u[r]];s.push(r)}}}if(!v){if(x.bWK){x.b="\\b("+s.join("|")+")\\s"}x.bR=f(y,x.b?x.b:"\\B|\\b");if(!x.e&&!x.eW){x.e="\\B|\\b"}if(x.e){x.eR=f(y,x.e)}}if(x.i){x.iR=f(y,x.i)}if(x.r===undefined){x.r=1}if(!x.c){x.c=[]}x.compiled=true;for(var t=0;t<x.c.length;t++){if(x.c[t]=="self"){x.c[t]=x}q(x.c[t],y,false)}if(x.starts){q(x.starts,y,false)}}for(var p in e){if(!e.hasOwnProperty(p)){continue}q(e[p].dM,e[p],true)}}function d(B,C){if(!j.called){j();j.called=true}function q(r,M){for(var L=0;L<M.c.length;L++){if((M.c[L].bR.exec(r)||[null])[0]==r){return M.c[L]}}}function v(L,r){if(D[L].e&&D[L].eR.test(r)){return 1}if(D[L].eW){var M=v(L-1,r);return M?M+1:0}return 0}function w(r,L){return L.i&&L.iR.test(r)}function K(N,O){var M=[];for(var L=0;L<N.c.length;L++){M.push(N.c[L].b)}var r=D.length-1;do{if(D[r].e){M.push(D[r].e)}r--}while(D[r+1].eW);if(N.i){M.push(N.i)}return f(O,M.join("|"),true)}function p(M,L){var N=D[D.length-1];if(!N.t){N.t=K(N,E)}N.t.lastIndex=L;var r=N.t.exec(M);return r?[M.substr(L,r.index-L),r[0],false]:[M.substr(L),"",true]}function z(N,r){var L=E.cI?r[0].toLowerCase():r[0];var M=N.k[L];if(M&&M instanceof Array){return M}return false}function F(L,P){L=m(L);if(!P.k){return L}var r="";var O=0;P.lR.lastIndex=0;var M=P.lR.exec(L);while(M){r+=L.substr(O,M.index-O);var N=z(P,M);if(N){x+=N[1];r+='<span class="'+N[0]+'">'+M[0]+"</span>"}else{r+=M[0]}O=P.lR.lastIndex;M=P.lR.exec(L)}return r+L.substr(O,L.length-O)}function J(L,M){if(M.sL&&e[M.sL]){var r=d(M.sL,L);x+=r.keyword_count;return r.value}else{return F(L,M)}}function I(M,r){var L=M.cN?'<span class="'+M.cN+'">':"";if(M.rB){y+=L;M.buffer=""}else{if(M.eB){y+=m(r)+L;M.buffer=""}else{y+=L;M.buffer=r}}D.push(M);A+=M.r}function G(N,M,Q){var R=D[D.length-1];if(Q){y+=J(R.buffer+N,R);return false}var P=q(M,R);if(P){y+=J(R.buffer+N,R);I(P,M);return P.rB}var L=v(D.length-1,M);if(L){var O=R.cN?"</span>":"";if(R.rE){y+=J(R.buffer+N,R)+O}else{if(R.eE){y+=J(R.buffer+N,R)+O+m(M)}else{y+=J(R.buffer+N+M,R)+O}}while(L>1){O=D[D.length-2].cN?"</span>":"";y+=O;L--;D.length--}var r=D[D.length-1];D.length--;D[D.length-1].buffer="";if(r.starts){I(r.starts,"")}return R.rE}if(w(M,R)){throw"Illegal"}}var E=e[B];var D=[E.dM];var A=0;var x=0;var y="";try{var s,u=0;E.dM.buffer="";do{s=p(C,u);var t=G(s[0],s[1],s[2]);u+=s[0].length;if(!t){u+=s[1].length}}while(!s[2]);if(D.length>1){throw"Illegal"}return{r:A,keyword_count:x,value:y}}catch(H){if(H=="Illegal"){return{r:0,keyword_count:0,value:m(C)}}else{throw H}}}function g(t){var p={keyword_count:0,r:0,value:m(t)};var r=p;for(var q in e){if(!e.hasOwnProperty(q)){continue}var s=d(q,t);s.language=q;if(s.keyword_count+s.r>r.keyword_count+r.r){r=s}if(s.keyword_count+s.r>p.keyword_count+p.r){r=p;p=s}}if(r.language){p.second_best=r}return p}function i(r,q,p){if(q){r=r.replace(/^((<[^>]+>|\t)+)/gm,function(t,w,v,u){return w.replace(/\t/g,q)})}if(p){r=r.replace(/\n/g,"<br>")}return r}function n(t,w,r){var x=h(t,r);var v=a(t);var y,s;if(v){y=d(v,x)}else{return}var q=c(t);if(q.length){s=document.createElement("pre");s.innerHTML=y.value;y.value=k(q,c(s),x)}y.value=i(y.value,w,r);var u=t.className;if(!u.match("(\\s|^)(language-)?"+v+"(\\s|$)")){u=u?(u+" "+v):v}if(/MSIE [678]/.test(navigator.userAgent)&&t.tagName=="CODE"&&t.parentNode.tagName=="PRE"){s=t.parentNode;var p=document.createElement("div");p.innerHTML="<pre><code>"+y.value+"</code></pre>";t=p.firstChild.firstChild;p.firstChild.cN=s.cN;s.parentNode.replaceChild(p.firstChild,s)}else{t.innerHTML=y.value}t.className=u;t.result={language:v,kw:y.keyword_count,re:y.r};if(y.second_best){t.second_best={language:y.second_best.language,kw:y.second_best.keyword_count,re:y.second_best.r}}}function o(){if(o.called){return}o.called=true;var r=document.getElementsByTagName("pre");for(var p=0;p<r.length;p++){var q=b(r[p]);if(q){n(q,hljs.tabReplace)}}}function l(){if(window.addEventListener){window.addEventListener("DOMContentLoaded",o,false);window.addEventListener("load",o,false)}else{if(window.attachEvent){window.attachEvent("onload",o)}else{window.onload=o}}}var e={};this.LANGUAGES=e;this.highlight=d;this.highlightAuto=g;this.fixMarkup=i;this.highlightBlock=n;this.initHighlighting=o;this.initHighlightingOnLoad=l;this.IR="[a-zA-Z][a-zA-Z0-9_]*";this.UIR="[a-zA-Z_][a-zA-Z0-9_]*";this.NR="\\b\\d+(\\.\\d+)?";this.CNR="\\b(0[xX][a-fA-F0-9]+|(\\d+(\\.\\d*)?|\\.\\d+)([eE][-+]?\\d+)?)";this.BNR="\\b(0b[01]+)";this.RSR="!|!=|!==|%|%=|&|&&|&=|\\*|\\*=|\\+|\\+=|,|\\.|-|-=|/|/=|:|;|<|<<|<<=|<=|=|==|===|>|>=|>>|>>=|>>>|>>>=|\\?|\\[|\\{|\\(|\\^|\\^=|\\||\\|=|\\|\\||~";this.ER="(?![\\s\\S])";this.BE={b:"\\\\.",r:0};this.ASM={cN:"string",b:"'",e:"'",i:"\\n",c:[this.BE],r:0};this.QSM={cN:"string",b:'"',e:'"',i:"\\n",c:[this.BE],r:0};this.CLCM={cN:"comment",b:"//",e:"$"};this.CBLCLM={cN:"comment",b:"/\\*",e:"\\*/"};this.HCM={cN:"comment",b:"#",e:"$"};this.NM={cN:"number",b:this.NR,r:0};this.CNM={cN:"number",b:this.CNR,r:0};this.BNM={cN:"number",b:this.BNR,r:0};this.inherit=function(r,s){var p={};for(var q in r){p[q]=r[q]}if(s){for(var q in s){p[q]=s[q]}}return p}}();hljs.LANGUAGES.cpp=function(){var a={keyword:{"false":1,"int":1,"float":1,"while":1,"private":1,"char":1,"catch":1,"export":1,virtual:1,operator:2,sizeof:2,dynamic_cast:2,typedef:2,const_cast:2,"const":1,struct:1,"for":1,static_cast:2,union:1,namespace:1,unsigned:1,"long":1,"throw":1,"volatile":2,"static":1,"protected":1,bool:1,template:1,mutable:1,"if":1,"public":1,friend:2,"do":1,"return":1,"goto":1,auto:1,"void":2,"enum":1,"else":1,"break":1,"new":1,extern:1,using:1,"true":1,"class":1,asm:1,"case":1,typeid:1,"short":1,reinterpret_cast:2,"default":1,"double":1,register:1,explicit:1,signed:1,typename:1,"try":1,"this":1,"switch":1,"continue":1,wchar_t:1,inline:1,"delete":1,alignof:1,char16_t:1,char32_t:1,constexpr:1,decltype:1,noexcept:1,nullptr:1,static_assert:1,thread_local:1,restrict:1,_Bool:1,complex:1},built_in:{std:1,string:1,cin:1,cout:1,cerr:1,clog:1,stringstream:1,istringstream:1,ostringstream:1,auto_ptr:1,deque:1,list:1,queue:1,stack:1,vector:1,map:1,set:1,bitset:1,multiset:1,multimap:1,unordered_set:1,unordered_map:1,unordered_multiset:1,unordered_multimap:1,array:1,shared_ptr:1}};return{dM:{k:a,i:"</",c:[hljs.CLCM,hljs.CBLCLM,hljs.QSM,{cN:"string",b:"'\\\\?.",e:"'",i:"."},{cN:"number",b:"\\b(\\d+(\\.\\d*)?|\\.\\d+)(u|U|l|L|ul|UL|f|F)"},hljs.CNM,{cN:"preprocessor",b:"#",e:"$"},{cN:"stl_container",b:"\\b(deque|list|queue|stack|vector|map|set|bitset|multiset|multimap|unordered_map|unordered_set|unordered_multiset|unordered_multimap|array)\\s*<",e:">",k:a,r:10,c:["self"]}]}}}();hljs.LANGUAGES.r={dM:{c:[hljs.HCM,{cN:"number",b:"\\b0[xX][0-9a-fA-F]+[Li]?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+(?:[eE][+\\-]?\\d*)?L\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+\\.(?!\\d)(?:i\\b)?",e:hljs.IMMEDIATE_RE,r:1},{cN:"number",b:"\\b\\d+(?:\\.\\d*)?(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\.\\d+(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"keyword",b:"(?:tryCatch|library|setGeneric|setGroupGeneric)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\.",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\d+(?![\\w.])",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\b(?:function)",e:hljs.IMMEDIATE_RE,r:2},{cN:"keyword",b:"(?:if|in|break|next|repeat|else|for|return|switch|while|try|stop|warning|require|attach|detach|source|setMethod|setClass)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"literal",b:"(?:NA|NA_integer_|NA_real_|NA_character_|NA_complex_)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"literal",b:"(?:NULL|TRUE|FALSE|T|F|Inf|NaN)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"identifier",b:"[a-zA-Z.][a-zA-Z0-9._]*\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"<\\-(?!\\s*\\d)",e:hljs.IMMEDIATE_RE,r:2},{cN:"operator",b:"\\->|<\\-",e:hljs.IMMEDIATE_RE,r:1},{cN:"operator",b:"%%|~",e:hljs.IMMEDIATE_RE},{cN:"operator",b:">=|<=|==|!=|\\|\\||&&|=|\\+|\\-|\\*|/|\\^|>|<|!|&|\\||\\$|:",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"%",e:"%",i:"\\n",r:1},{cN:"identifier",b:"`",e:"`",r:0},{cN:"string",b:'"',e:'"',c:[hljs.BE],r:0},{cN:"string",b:"'",e:"'",c:[hljs.BE],r:0},{cN:"paren",b:"[[({\\])}]",e:hljs.IMMEDIATE_RE,r:0}]}};
-hljs.initHighlightingOnLoad();
-</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.6.0/build/styles/github.min.css">
+<script src="https://cdn.jsdelivr.net/combine/gh/highlightjs/cdn-release@11.6.0/build/highlight.min.js,npm/@xiee/utils/js/load-highlight.js" async></script>
 
 <!-- MathJax scripts -->
-<script type="text/javascript" src="https://cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML">
+<script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML" async>
 </script>
-
 
 <style type="text/css">
 body, td {
-   font-family: sans-serif;
-   background-color: white;
-   font-size: 13px;
+  font-family: sans-serif;
+  background-color: white;
+  font-size: 13px;
 }
-
 body {
   max-width: 800px;
   margin: auto;
   padding: 1em;
-  line-height: 20px;
+  line-height: 1.5;
 }
-
 tt, code, pre {
-   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+  font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
 }
-
-h1 {
-   font-size:2.2em;
-}
-
-h2 {
-   font-size:1.8em;
-}
-
-h3 {
-   font-size:1.4em;
-}
-
-h4 {
-   font-size:1.0em;
-}
-
-h5 {
-   font-size:0.9em;
-}
-
-h6 {
-   font-size:0.8em;
-}
-
-a:visited {
-   color: rgb(50%, 0%, 50%);
-}
-
-pre, img {
-  max-width: 100%;
-}
-pre {
-  overflow-x: auto;
-}
-pre code {
-   display: block; padding: 0.5em;
-}
-
+a:visited { color: #80007f; }
+pre, img { max-width: 100%; }
 code {
   font-size: 92%;
   border: 1px solid #ccc;
 }
-
-code[class] {
-  background-color: #F8F8F8;
+code[class] { background-color: #F8F8F8; }
+code.language-undefined { background-color: inherit; }
+table {
+  margin: auto;
+  border-top: 1px solid #666;
+  border-bottom: 1px solid #666;
 }
-
-table, td, th {
-  border: none;
-}
-
+table thead th { border-bottom: 1px solid #ddd; }
+th, td { padding: 5px; }
+thead, tfoot, tr:nth-child(even) { background: #eee; }
 blockquote {
-   color:#666666;
-   margin:0;
-   padding-left: 1em;
-   border-left: 0.5em #EEE solid;
+  color:#666;
+  margin:0;
+  padding-left: 1em;
+  border-left: 0.5em #eee solid;
 }
-
-hr {
-   height: 0px;
-   border-bottom: none;
-   border-top-width: thin;
-   border-top-style: dotted;
-   border-top-color: #999999;
-}
+hr { border: 1px #ddd dashed; }
 
 @media print {
-   * {
-      background: transparent !important;
-      color: black !important;
-      filter:none !important;
-      -ms-filter: none !important;
-   }
-
-   body {
-      font-size:12pt;
-      max-width:100%;
-   }
-
-   a, a:visited {
-      text-decoration: underline;
-   }
-
-   hr {
-      visibility: hidden;
-      page-break-before: always;
-   }
-
-   pre, blockquote {
-      padding-right: 1em;
-      page-break-inside: avoid;
-   }
-
-   tr, img {
-      page-break-inside: avoid;
-   }
-
-   img {
-      max-width: 100% !important;
-   }
-
-   @page :left {
-      margin: 15mm 20mm 15mm 10mm;
-   }
-
-   @page :right {
-      margin: 15mm 10mm 15mm 20mm;
-   }
-
-   p, h2, h3 {
-      orphans: 3; widows: 3;
-   }
-
-   h2, h3 {
-      page-break-after: avoid;
-   }
+  * {
+    background: transparent !important;
+    color: black !important;
+    filter:none !important;
+  }
+  body {
+    font-size: 12pt;
+    max-width: 100%;
+  }
+  a, a:visited { text-decoration: underline; }
+  hr {
+    visibility: hidden;
+    page-break-before: always;
+  }
+  pre, blockquote {
+    padding-right: 1em;
+    page-break-inside: avoid;
+  }
+  tr, img { page-break-inside: avoid; }
+  img { max-width: 100% !important; }
+  @page :left { margin: 15mm 20mm 15mm 10mm; }
+  @page :right { margin: 15mm 10mm 15mm 20mm; }
+  p, h2, h3 { orphans: 3; widows: 3; }
+  h2, h3 { page-break-after: avoid; }
 }
 </style>
 
@@ -204,26 +84,20 @@ hr {
 </head>
 
 <body>
-<pre><code class="r fold-hide">library(tidyverse)   # Data wrangling
+<pre><code class="language-{.r">library(tidyverse)   # Data wrangling
 library(tidyfit)     # Model fitting
 
 # Max model size
 MODEL_SIZE &lt;- 10
 </code></pre>
-
-<p><code>tidyfit</code> packages several methods that can be used for feature selection. These include <strong>filter</strong>, <strong>wrapper</strong> and <strong>embedded</strong> algorithms. In this tutorial, we will use 3 algorithms from each of these broader categories, in order to select the top 10 best predictors of industrial production from a macroeconomic data set of monthly US economic indicators (FRED-MD). </p>
-
+<p><code>tidyfit</code> packages several methods that can be used for feature selection. These include <strong>filter</strong>, <strong>wrapper</strong> and <strong>embedded</strong> algorithms. In this tutorial, we will use 3 algorithms from each of these broader categories, in order to select the top 10 best predictors of industrial production from a macroeconomic data set of monthly US economic indicators (FRED-MD).</p>
 <p>The FRED-MD data set contains 134 variables characterizing the US macroeconomy with a monthly frequency and values (across all features) since the early 1990s. The data set is often used in academic research — primarily for the development of high-dimensional forecasting and nowcasting. All variables have conveniently been transformed to ensure stationarity. A description of the data as well as transformations can be found <a href="https://research.stlouisfed.org/econ/mccracken/fred-databases/">here</a>.</p>
-
-<p>The data can be downloaded using the <code>fbi</code>-package in <code>R</code>.<sup>[See</sup> <code>?fbi::fredmd</code>.] In addition to the variables included there, I augment the ISM manufacturing PMI data (6 features), which is no longer provided by FRED.</p>
-
-<pre><code class="r"># Load the data
+<p>The data can be downloaded using the <code>fbi</code>-package in <code>R</code>.^[See <code>?fbi::fredmd</code>.] In addition to the variables included there, I augment the ISM manufacturing PMI data (6 features), which is no longer provided by FRED.</p>
+<pre><code class="language-r"># Load the data
 data &lt;- readRDS(&quot;FRED-MD.rds&quot;)
 </code></pre>
-
-<p>Let&#39;s shift the target to generate a forecast, and drop missing values:</p>
-
-<pre><code class="r">data &lt;- data %&gt;% 
+<p>Let’s shift the target to generate a forecast, and drop missing values:</p>
+<pre><code class="language-r">data &lt;- data %&gt;% 
   arrange(date) %&gt;% 
   # Shift the target by 1 month
   mutate(Target = lead(INDPRO)) %&gt;% 
@@ -252,33 +126,24 @@ data
 #&gt; #   UEMP27OV &lt;dbl&gt;, CLAIMSx &lt;dbl&gt;, PAYEMS &lt;dbl&gt;, USGOOD &lt;dbl&gt;,
 #&gt; #   CES1021000001 &lt;dbl&gt;, USCONS &lt;dbl&gt;, MANEMP &lt;dbl&gt;, DMANEMP &lt;dbl&gt;, …
 </code></pre>
-
 <h2>Feature selection algorithms</h2>
-
 <p>We will fit each of the feature selection algorithms using the <code>regress</code> function in <code>tidyfit</code>, and will iteratively build a <code>tidyfit.models</code>-frame below.</p>
-
 <h3>Filter methods</h3>
-
-<p>Filter methods are model-agnostic and perform univariate comparisons between each feature and the target. They encompass the simplest (and typically fastest) group of algorithms. One of the most basic forms of feature selection uses <strong>Pearson&#39;s correlation</strong> coefficient. As with all <code>tidyfit</code> methods, <code>m(&quot;cor&quot;)</code> fits the method. The actual correlation coefficients will be obtained using <code>coef()</code>:</p>
-
-<pre><code class="r"># Correlation
+<p>Filter methods are model-agnostic and perform univariate comparisons between each feature and the target. They encompass the simplest (and typically fastest) group of algorithms. One of the most basic forms of feature selection uses <strong>Pearson’s correlation</strong> coefficient. As with all <code>tidyfit</code> methods, <code>m(&quot;cor&quot;)</code> fits the method. The actual correlation coefficients will be obtained using <code>coef()</code>:</p>
+<pre><code class="language-r"># Correlation
 algorithms_df &lt;- data %&gt;% 
   regress(Target ~ ., Correlation = m(&quot;cor&quot;))
 </code></pre>
-
 <p>The <strong>ReliefF</strong> algorithm is a popular nearest-neighbors-based approach to feature selection and can be implemented using <code>m(&quot;relief&quot;)</code>. The function will automatically use the regression version (RReliefF) when executed within a <code>regress</code> wrapper:</p>
-
-<pre><code class="r"># RReliefF
+<pre><code class="language-r"># RReliefF
 algorithms_df &lt;- algorithms_df %&gt;% 
   bind_rows(
     data %&gt;% 
       regress(Target ~ ., RReliefF = m(&quot;relief&quot;))
   )
 </code></pre>
-
 <p>Under the hood, <code>m(&quot;relief&quot;)</code> is a wrapper for <code>CORElearn::attrEval</code>, which bundles a large number of selection algorithms, with <code>estimator = &quot;RReliefFequalK&quot;</code> as the default. This default can be overridden to employ any alternative feature selection algorithm, such as another nonparametric method called <strong>information gain</strong>. This method first requires the continuous target to be bucketized:</p>
-
-<pre><code class="r"># Information Gain
+<pre><code class="language-r"># Information Gain
 algorithms_df &lt;- algorithms_df %&gt;% 
   bind_rows(
     data %&gt;% 
@@ -288,12 +153,9 @@ algorithms_df &lt;- algorithms_df %&gt;%
               `Information Gain` = m(&quot;relief&quot;, estimator = &quot;InfGain&quot;))
   )
 </code></pre>
-
 <h3>Wrapper methods</h3>
-
 <p>The next set of methods perform iterative feature selection. The methods fit a model in a sequential manner, eliminating or adding features based on some criterion of model fit or predictive accuracy. We begin with <strong>forward selection</strong>, performed using <code>m(&quot;subset&quot;)</code>. Here we can specify the target model size directly:</p>
-
-<pre><code class="r"># Forward Selection
+<pre><code class="language-r"># Forward Selection
 algorithms_df &lt;- algorithms_df %&gt;% 
   bind_rows(
     data %&gt;% 
@@ -301,10 +163,8 @@ algorithms_df &lt;- algorithms_df %&gt;%
               `Forward Selection` = m(&quot;subset&quot;, method = &quot;forward&quot;, nvmax = MODEL_SIZE))
   )
 </code></pre>
-
-<p>The opposite of forward selection is <strong>backward elimination</strong>. This method is also implemented using the &ldquo;subset&rdquo; wrapper:</p>
-
-<pre><code class="r"># Backward Elimination
+<p>The opposite of forward selection is <strong>backward elimination</strong>. This method is also implemented using the “subset” wrapper:</p>
+<pre><code class="language-r"># Backward Elimination
 algorithms_df &lt;- algorithms_df %&gt;% 
   bind_rows(
     data %&gt;% 
@@ -312,22 +172,17 @@ algorithms_df &lt;- algorithms_df %&gt;%
               `Backward Elimination` = m(&quot;subset&quot;, method = &quot;backward&quot;, nvmax = MODEL_SIZE))
   )
 </code></pre>
-
 <p>The final sequential algorithm examined here is <strong>minimum redundancy, maximum relevance (MRMR)</strong>. The algorithm selects features based on the dual objective of maximizing the relevance for the target, while minimizing redundant information in the feature set. <code>m(&quot;mrmr&quot;)</code> is a wrapper for <code>mRMRe::mRMR.ensemble</code>:</p>
-
-<pre><code class="r"># MRMR
+<pre><code class="language-r"># MRMR
 algorithms_df &lt;- algorithms_df %&gt;% 
   bind_rows(
     data %&gt;% 
       regress(Target ~ ., MRMR = m(&quot;mrmr&quot;, feature_count = MODEL_SIZE))
   )
 </code></pre>
-
 <h3>Embedded methods</h3>
-
-<p>The last group of feature selection algorithms, embedded methods, combine model selection and estimation into a single step &mdash; for instance, by forcing a subset of the parameter weights to be zero. The <strong>LASSO</strong> does this by introducing an \(L1\)-penalty on the parameters. Here we will use an expanding window grid search validation to determine the optimal penalty<sup>[See</sup> <code>?rsample::rolling_origin</code> for details]:</p>
-
-<pre><code class="r"># LASSO
+<p>The last group of feature selection algorithms, embedded methods, combine model selection and estimation into a single step — for instance, by forcing a subset of the parameter weights to be zero. The <strong>LASSO</strong> does this by introducing an \(L1\)-penalty on the parameters. Here we will use an expanding window grid search validation to determine the optimal penalty^[See <code>?rsample::rolling_origin</code> for details]:</p>
+<pre><code class="language-r"># LASSO
 algorithms_df &lt;- algorithms_df %&gt;% 
   bind_rows(
     data %&gt;% 
@@ -338,10 +193,8 @@ algorithms_df &lt;- algorithms_df %&gt;%
               )
   )
 </code></pre>
-
-<p><strong>Bayesian model averaging</strong> takes a different approach, sampling a large number of models and using Bayes&#39; rule to compute a posterior inclusion probability for each feature. <code>m(&quot;bma&quot;)</code> is a wrapper for <code>BMS::bms</code>:</p>
-
-<pre><code class="r"># BMA
+<p><strong>Bayesian model averaging</strong> takes a different approach, sampling a large number of models and using Bayes’ rule to compute a posterior inclusion probability for each feature. <code>m(&quot;bma&quot;)</code> is a wrapper for <code>BMS::bms</code>:</p>
+<pre><code class="language-r"># BMA
 algorithms_df &lt;- algorithms_df %&gt;% 
   bind_rows(
     data %&gt;% 
@@ -350,31 +203,24 @@ algorithms_df &lt;- algorithms_df %&gt;%
                       mprior.size = MODEL_SIZE, mcmc = &quot;rev.jump&quot;))
   )
 </code></pre>
-
 <p>Last, but not least, <strong>Random Forests importance</strong> is a popular machine learning technique for model selection. We estimate a simple random forest using default settings, with <code>m(&quot;rf&quot;)</code>, which is a wrapper for the <code>randomForest</code>-package. Note that <code>importance = TRUE</code> by default, thus feature importances are computed and can be accessed using <code>coef</code>:</p>
-
-<pre><code class="r"># Random Forest Importance
+<pre><code class="language-r"># Random Forest Importance
 algorithms_df &lt;- algorithms_df %&gt;% 
   bind_rows(
     data %&gt;% 
       regress(Target ~ ., `RF Importance` = m(&quot;rf&quot;))
   )
 </code></pre>
-
 <h2>Extracting the top models</h2>
-
-<p>All information needed to select the top 10 features for each algorithm can be obtained using <code>coef(algorithms_df)</code> and unnesting the additional information stored in <code>model_info</code>: </p>
-
-<pre><code class="r">coef_df &lt;- coef(algorithms_df) %&gt;% 
+<p>All information needed to select the top 10 features for each algorithm can be obtained using <code>coef(algorithms_df)</code> and unnesting the additional information stored in <code>model_info</code>:</p>
+<pre><code class="language-r">coef_df &lt;- coef(algorithms_df) %&gt;% 
   unnest(model_info)
 </code></pre>
-
 <p>Some algorithms return more than the maximum 10 variables. For instance, the filter methods (correlation, RReliefF and information gain) return a score for each feature. The below code chunk selects the top 10 features for each algorithm:</p>
-
-<pre><code class="r">model_df &lt;- coef_df %&gt;% 
+<pre><code class="language-r">model_df &lt;- coef_df %&gt;% 
   # Always remove the intercept
   filter(term != &quot;(Intercept)&quot;) %&gt;% 
-
+  
   mutate(selected = case_when(
     # Extract top 10 largest scores
     model %in% c(&quot;Correlation&quot;, &quot;RReliefF&quot;, &quot;Information Gain&quot;) ~ 
@@ -386,26 +232,22 @@ algorithms_df &lt;- algorithms_df %&gt;%
     # For all other methods keep all features
     TRUE ~ TRUE
   )) %&gt;% 
-
+  
   # Keep only included terms
   filter(selected) %&gt;% 
   select(model, term)
 </code></pre>
-
 <p>Before examining the results, we will also add a <strong>domain expert</strong>. Here I simply add those features that are included in the US Conference Board Composite Leading Indicator and are available in our data set:</p>
-
-<pre><code class="r">model_df &lt;- model_df %&gt;% 
+<pre><code class="language-r">model_df &lt;- model_df %&gt;% 
   bind_rows(tibble(
     model = &quot;Domain Expert&quot;,
     term = c(&quot;NAPMNOI&quot;, &quot;ANDENOx&quot;, &quot;CLAIMSx&quot;, &quot;ACOGNO&quot;, 
              &quot;S&amp;P 500&quot;, &quot;T10YFFM&quot;, &quot;PERMIT&quot;, &quot;AWHMAN&quot;)
   ))
 </code></pre>
-
-<p>Now, let&#39;s examine the models selected by each of the various algorithms:</p>
-
-<pre><code class="r fold-hide">model_df %&gt;% 
-  # Add &#39;FALSE&#39; entries, when a feature is not selected
+<p>Now, let’s examine the models selected by each of the various algorithms:</p>
+<pre><code class="language-{.r">model_df %&gt;% 
+  # Add 'FALSE' entries, when a feature is not selected
   mutate(selected = TRUE) %&gt;% 
   spread(term, selected) %&gt;% 
   gather(&quot;term&quot;, &quot;selected&quot;, -model) %&gt;% 
@@ -425,12 +267,9 @@ algorithms_df &lt;- algorithms_df %&gt;%
   xlab(element_blank()) + ylab(element_blank()) +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 </code></pre>
-
-<p><img src="data:image/png;base64,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" alt="plot of chunk unnamed-chunk-16" style="display: block; margin: auto;" /></p>
-
+<img src="data:image/png;base64,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" alt="plot of chunk unnamed-chunk-16" style="display: block; margin: auto;" />
 <p>There is quite a lot of disagreement between different feature selection algorithms. We can develop an understanding of the type of information selected by each algorithm by examining how well each feature set explains the target using the \(R2\)-statistic. To get a sense of the sample stability, we generate bootstrap samples and regress the target onto each model. Note that it is important to set <code>.force_cv = TRUE</code> below, since <code>m(&quot;lm&quot;)</code> does not have hyperparameters and thus ignores the <code>.cv</code> argument by default.</p>
-
-<pre><code class="r">model_names &lt;- unique(model_df$model)
+<pre><code class="language-r">model_names &lt;- unique(model_df$model)
 
 # Retrieve selected variables
 selected_vars_list &lt;- model_names %&gt;% 
@@ -446,7 +285,7 @@ boot_models_df &lt;- selected_vars_list %&gt;%
   map_dfr(function(selected_vars) {
     data %&gt;% 
       select(all_of(c(&quot;Target&quot;, selected_vars))) %&gt;% 
-
+      
       regress(Target ~ ., 
               # Use linear regression
               m(&quot;lm&quot;), 
@@ -461,8 +300,7 @@ boot_df &lt;- boot_models_df %&gt;%
   mutate(R2 = map_dbl(model_object, function(obj) summary(obj)$r.squared)) %&gt;% 
   select(model, R2)
 </code></pre>
-
-<pre><code class="r fold-hide">boot_df %&gt;% 
+<pre><code class="language-{.r">boot_df %&gt;% 
   group_by(model) %&gt;% 
   mutate(upper = mean(R2) + 2 * sd(R2) / sqrt(n()),
          lower = mean(R2) - 2 * sd(R2) / sqrt(n())) %&gt;% 
@@ -473,11 +311,11 @@ boot_df &lt;- boot_models_df %&gt;%
   theme_bw(8, &quot;Arial&quot;) +
   xlab(element_blank()) + ylab(&quot;R2 statistic&quot;)
 </code></pre>
+<img src="data:image/png;base64,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" alt="plot of chunk unnamed-chunk-18" style="display: block; margin: auto;" />
+<p>The filter methods as well as RF Importance tend to explain a relatively small proportion of the response variation, while BMA and subset selection algorithms perform best.</p>
 
-<p><img src="data:image/png;base64,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" alt="plot of chunk unnamed-chunk-18" style="display: block; margin: auto;" /></p>
 
-<p>The filter methods as well as RF Importance tend to explain a relatively small proportion of the response variation, while BMA and subset selection algorithms perform best. </p>
-
+<script src="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/js/center-img.min.js" async></script>
 </body>
 
 </html>

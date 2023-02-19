@@ -18,8 +18,8 @@ if (use_saved_results) {
 }
 
 ## ---- eval=TRUE---------------------------------------------------------------
-library(tidyverse)   # Data wrangling
-library(tidyfit)     # Model fitting
+library(dplyr); library(tidyr); library(purrr); library(ggplot2) # Data wrangling
+library(tidyfit) # Model fitting
 
 ## ---- eval=TRUE---------------------------------------------------------------
 data <- MASS::Boston %>% 

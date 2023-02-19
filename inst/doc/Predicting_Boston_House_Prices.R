@@ -16,7 +16,8 @@ if (use_saved_results) {
 }
 
 ## ---- eval=TRUE---------------------------------------------------------------
-library(tidyverse) # Data wrangling
+library(dplyr); library(tidyr); library(purrr) # Data wrangling
+library(ggplot2); library(stringr) # Plotting
 library(tidyfit)   # Auto-ML modeling
 
 ## ---- eval=TRUE---------------------------------------------------------------
@@ -90,7 +91,7 @@ tbl <- data.frame(
   `L1/L2 penalized` = c("Lasso (`glmnet`)", "Ridge (`glmnet`)", "ElasticNet (`glmnet`)", "Adaptive Lasso (`glmnet`)"),
   `Latent factors` = c("Principal components regression (`pls`)", "Partial least squares (`pls`)", "", ""),
   `Machine Learning` = c("Gradient Boosting (`mboost`)", "Hierarchical feature regression (`hfr`)", "Support vector regression (`e1071`)", ""),
-  `Bayesian` = c("Bayesian regression (`arm`)", "Bayesian model averaging (`BMS`)", "", ""),
+  `Bayesian` = c("Bayesian regression (`arm`)", "Bayesian model averaging (`BMS`)", "Bayesian Lasso (`monomvn`)", "Bayesian Ridge (`monomvn`)"),
   check.names = F
 )
 kbl(tbl, align = "ccccc") %>% 
@@ -107,7 +108,9 @@ kbl(tbl, align = "ccccc") %>%
 #            `FORWARD SELECTION` = m("subset", method = "forward", IC = "AIC"),
 #            `BACKWARD SELECTION` = m("subset", method = "backward", IC = "AIC"),
 #            LASSO = m("lasso"),
+#            BLASSO = m("blasso"),
 #            RIDGE = m("ridge"),
+#            BRIDGE = m("bridge"),
 #            ELASTICNET = m("enet"),
 #            ADALASSO = m("adalasso", lambda_ridge = c(0.001, 0.01, 0.1)),
 #            PCR = m("pcr"),

@@ -16,7 +16,8 @@ if (use_saved_results) {
 }
 
 ## ---- eval=TRUE---------------------------------------------------------------
-library(tidyverse) # Data wrangling
+library(dplyr); library(tidyr); library(purrr) # Data wrangling
+library(ggplot2); library(stringr) # Plotting
 library(tidyfit)   # Auto-ML modeling
 
 ## ---- eval=TRUE---------------------------------------------------------------

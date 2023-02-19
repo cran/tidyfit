@@ -40,7 +40,8 @@
   }
 
   control <- .func_to_list(control)
-  grid <- purrr::cross(control)
+  grid <- tidyr::expand_grid(!!! control) %>%
+    purrr::transpose()
   if (length(grid)==0) grid <- list(grid)
   return(grid)
 
@@ -61,19 +62,12 @@
 
 }
 
-.control_to_settings <- function(mod) {
+.args_to_frame <- function(mod) {
   if (length(mod$args) > 0) {
     args <- .func_to_list(mod$args)
     settings <- tibble::enframe(args) %>%
       tidyr::pivot_wider() %>%
-      dplyr::summarise(across(.fns = ~ if(length(unlist(.)) == 1) unlist(.) else .))
-    if (!is.null(mod$inner_grid)) {
-      settings <- settings %>%
-        dplyr::select(-any_of(colnames(mod$inner_grid))) %>%
-        dplyr::bind_cols(mod$inner_grid)
-    }
-    settings <- settings %>%
-      tidyr::nest(settings = dplyr::everything())
+      dplyr::summarise(across(.cols = dplyr::everything(), .fns = ~ if(length(unlist(.)) == 1) unlist(.) else .))
   } else {
     settings <- NULL
   }
@@ -145,4 +139,14 @@ appr_in <- function(a, b) {
 
   return(rescaled_coefs)
 
+}
+
+.warn_and_remove_errors <- function(object) {
+  object <- object %>%
+    dplyr::filter(as.logical(map(.data$model_object, function(obj) {
+      if (is.null(obj$object))
+        warning(paste0("No model fitted for '", obj$method, "'. Check errors."))
+      return(!is.null(obj$object))
+    })))
+  return(object)
 }

@@ -84,8 +84,8 @@ hr { border: 1px #ddd dashed; }
 </head>
 
 <body>
-<pre><code class="language-r">library(tidyverse)   # Data wrangling
-library(tidyfit)     # Model fitting
+<pre><code class="language-r">library(dplyr); library(tidyr); library(purrr); library(ggplot2) # Data wrangling
+library(tidyfit) # Model fitting
 </code></pre>
 <p>The combination of <code>.cv = &quot;bootstraps&quot;</code> and <code>.return_slices = TRUE</code> in <code>tidyfit::regress</code> or <code>tidyfit::classify</code> makes it very easy to calculate bootstrap confidence intervals for estimated coefficients. As an additional convenience function, <code>coef.tidyfit.models</code> includes the option of adding percentile bootstrap intervals directly. In this short example, I will calculate and compare bootstrap confidence bands for a partial least squares regression and a principal components regression using Boston house price data:</p>
 <pre><code class="language-r">data &lt;- MASS::Boston %&gt;% 

@@ -8,8 +8,8 @@ knitr::opts_chunk$set(
 )
 
 ## -----------------------------------------------------------------------------
-library(tidyverse) # Data wrangling
-library(tidyfit)   # Auto-ML modeling
+library(dplyr); library(tidyr); library(purrr) # Data wrangling
+library(tidyfit) # Auto-ML modeling
 
 ## -----------------------------------------------------------------------------
 data <- MASS::Boston

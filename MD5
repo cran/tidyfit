@@ -1,6 +1,6 @@
-df2990165e324f98050ec49b21f3133a *DESCRIPTION
+1253719581c5b319ea8a161ce71e174a *DESCRIPTION
 58936fb30b07f4d5d72589ee0ebbc574 *NAMESPACE
-b8ff17e4e6648075728e7e0554d28f9c *NEWS.md
+5b2dfd1bb36dc63086ea07f18428062c *NEWS.md
 abeb1afad6bd857de47b4890c8df4a94 *R/check_method.R
 68a9ded27d4b2c468ad4706995d3d254 *R/classify.R
 2ea16fcff5592cb46de45a2e823a0f37 *R/coef.R
@@ -13,7 +13,7 @@ e7da07d0326b6944035dca1d688e57ca *R/fit_groups.R
 fa5b07b5fd2b65f1c3549c76e022e4ea *R/fitted.R
 1c8ac78f4a76ff7dcd0ffd9aee4d47e2 *R/fitted.tidyfit.models.R
 a7783a83587367817c2210385e7ed4b7 *R/fitted_methods.R
-d268f734f7afb0ab20c2056645b9b44a *R/generics.R
+24ae1e388c2ccd44e185cc93640df8ba *R/generics.R
 90215569034c4dce73ed1747ac5ccc54 *R/m.R
 1abe1d93e23cfc38ab60d800e18dd47c *R/make_cross_val.R
 fbc572c6cf8bc2086fcd939cb196fa5a *R/make_rsample_bootstraps.R

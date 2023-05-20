@@ -1,8 +1,8 @@
 Package: tidyfit
 Type: Package
 Title: Regularized Linear Modeling with Tidy Data
-Date: 2023-03-15
-Version: 0.6.3
+Date: 2023-05-20
+Version: 0.6.4
 Author: Johann Pfitzinger [aut, cre]
 Maintainer: Johann Pfitzinger <johann.pfitzinger@gmail.com>
 Description: An extension to the 'R' tidy data environment for automated machine learning. The package allows fitting and cross validation of linear regression and classification algorithms on grouped data. 
@@ -16,13 +16,14 @@ Depends: R (>= 3.5)
 Imports: broom, crayon, dials, dplyr, furrr, magrittr, MASS, methods,
         progressr, purrr, rlang, rsample, stats, tibble, tidyr, utils,
         yardstick
-Suggests: arm, bestglm, BMS, CORElearn, e1071, gets, ggplot2, glmnet,
-        hfr, kableExtra, knitr, lme4, lmtest, lubridate, mboost,
-        monomvn, mRMRe, MSwM, pls, quantreg, randomForest, sandwich,
-        shrinkTVP, stringr, rmarkdown, testthat (>= 3.0.0)
+Suggests: arm, bestglm, BMS, BoomSpikeSlab, CORElearn, e1071, gaselect,
+        gets, ggplot2, glmnet, hfr, kableExtra, knitr, lme4, lmtest,
+        lubridate, mboost, monomvn, mRMRe, MSwM, pls, quantreg,
+        randomForest, sandwich, shrinkTVP, stringr, rmarkdown, testthat
+        (>= 3.0.0)
 VignetteBuilder: knitr
 Config/testthat/edition: 3
 NeedsCompilation: no
-Packaged: 2023-03-15 19:04:24 UTC; johann
+Packaged: 2023-05-20 15:19:29 UTC; johann
 Repository: CRAN
-Date/Publication: 2023-03-15 19:20:02 UTC
+Date/Publication: 2023-05-20 15:40:02 UTC

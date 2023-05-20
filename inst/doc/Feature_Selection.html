@@ -1,89 +1,153 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <title>Feature Selection</title>
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.6.0/build/styles/github.min.css">
-<script src="https://cdn.jsdelivr.net/combine/gh/highlightjs/cdn-release@11.6.0/build/highlight.min.js,npm/@xiee/utils/js/load-highlight.js" async></script>
-
-<!-- MathJax scripts -->
-<script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML" async>
-</script>
-
 <style type="text/css">
-body, td {
-  font-family: sans-serif;
-  background-color: white;
-  font-size: 13px;
+/**
+ * Prism.s theme ported from highlight.js's xcode style
+ */
+pre code {
+  padding: 1em;
 }
+.token.comment {
+  color: #007400;
+}
+.token.punctuation {
+  color: #999;
+}
+.token.tag,
+.token.selector {
+  color: #aa0d91;
+}
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol {
+  color: #1c00cf;
+}
+.token.property,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin {
+  color: #c41a16;
+}
+.token.inserted {
+  background-color: #ccffd8;
+}
+.token.deleted {
+  background-color: #ffebe9;
+}
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+  color: #9a6e3a;
+}
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+  color: #836c28;
+}
+.token.function,
+.token.class-name {
+  color: #DD4A68;
+}
+.token.regex,
+.token.important,
+.token.variable {
+  color: #5c2699;
+}
+.token.important,
+.token.bold {
+  font-weight: bold;
+}
+.token.italic {
+  font-style: italic;
+}
+</style>
+<style type="text/css">
 body {
+  font-family: sans-serif;
   max-width: 800px;
   margin: auto;
   padding: 1em;
   line-height: 1.5;
+  box-sizing: border-box;
 }
-tt, code, pre {
-  font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+body, .footnotes, code { font-size: .9em; }
+li li { font-size: .95em; }
+*, *:before, *:after {
+  box-sizing: inherit;
 }
-a:visited { color: #80007f; }
 pre, img { max-width: 100%; }
-code {
-  font-size: 92%;
-  border: 1px solid #ccc;
+pre, pre:hover {
+  white-space: pre-wrap;
+  word-break: break-all;
 }
-code[class] { background-color: #F8F8F8; }
-code.language-undefined { background-color: inherit; }
+pre code {
+  display: block;
+  overflow-x: auto;
+}
+code { font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace; }
+:not(pre) > code, code[class] { background-color: #F8F8F8; }
+code.language-undefined, pre > code:not([class]) {
+  background-color: inherit;
+  border: 1px solid #eee;
+}
 table {
   margin: auto;
   border-top: 1px solid #666;
-  border-bottom: 1px solid #666;
 }
 table thead th { border-bottom: 1px solid #ddd; }
 th, td { padding: 5px; }
 thead, tfoot, tr:nth-child(even) { background: #eee; }
 blockquote {
-  color:#666;
-  margin:0;
+  color: #666;
+  margin: 0;
   padding-left: 1em;
-  border-left: 0.5em #eee solid;
+  border-left: 0.5em solid #eee;
 }
-hr { border: 1px #ddd dashed; }
+hr, .footnotes::before { border: 1px dashed #ddd; }
+.frontmatter { text-align: center; }
+#TOC .numbered li { list-style: none; }
+#TOC .numbered { padding-left: 0; }
+#TOC .numbered ul { padding-left: 1em; }
+table, .body h2 { border-bottom: 1px solid #666; }
+.body .appendix, .appendix ~ h2 { border-bottom-style: dashed; }
+.footnote-ref a::before { content: "["; }
+.footnote-ref a::after { content: "]"; }
+.footnotes::before {
+  content: "";
+  display: block;
+  max-width: 20em;
+}
 
 @media print {
-  * {
-    background: transparent !important;
-    color: black !important;
-    filter:none !important;
-  }
   body {
     font-size: 12pt;
     max-width: 100%;
   }
-  a, a:visited { text-decoration: underline; }
-  hr {
-    visibility: hidden;
-    page-break-before: always;
-  }
-  pre, blockquote {
-    padding-right: 1em;
-    page-break-inside: avoid;
-  }
   tr, img { page-break-inside: avoid; }
-  img { max-width: 100% !important; }
-  @page :left { margin: 15mm 20mm 15mm 10mm; }
-  @page :right { margin: 15mm 10mm 15mm 20mm; }
-  p, h2, h3 { orphans: 3; widows: 3; }
-  h2, h3 { page-break-after: avoid; }
+}
+@media only screen and (min-width: 992px) {
+  pre { white-space: pre; }
 }
 </style>
-
-
-
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
 </head>
-
 <body>
+<div class="include-before">
+</div>
+<div class="frontmatter">
+<div class="title"><h1>Feature Selection</h1></div>
+<div class="author"><h2></h2></div>
+<div class="date"><h3></h3></div>
+</div>
+<div class="body">
 <pre><code class="language-{.r">library(dplyr); library(tidyr); library(purrr) # Data wrangling
 library(ggplot2); library(stringr) # Plotting
 library(tidyfit) # Model fitting
@@ -107,29 +171,29 @@ data &lt;- readRDS(&quot;FRED-MD.rds&quot;)
 
 data
 #&gt; # A tibble: 363 × 135
-#&gt;          RPI   W875RX1 DPCERA3M08…¹ CMRMTS…²  RETAILx   INDPRO  IPFPNSS  IPFINAL
-#&gt;        &lt;dbl&gt;     &lt;dbl&gt;        &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
-#&gt;  1  0.00165   0.000812     0.00182   0.00402 -0.00300  8.28e-3  8.51e-3  0.00899
-#&gt;  2  0.00373   0.00275      0.000839  0.00664  0.00602  7.59e-3  7.43e-3  0.00760
-#&gt;  3  0.00533   0.00549      0.00515  -0.00874  0.00547  3.22e-3  5.50e-3  0.00580
-#&gt;  4  0.00417   0.00445      0.00270   0.0105   0.00280  5.39e-4 -2.44e-3 -0.00309
-#&gt;  5 -0.000796 -0.00135      0.00334   0.0133   0.00708  8.91e-3  9.98e-3  0.0113 
-#&gt;  6  0.00386   0.00381      0.00247  -0.0160   0.00324 -5.57e-3 -1.14e-3 -0.00119
-#&gt;  7 -0.00383  -0.00495      0.00649   0.0138   0.00949  3.14e-3 -5.70e-4 -0.00190
-#&gt;  8 -0.00492  -0.00580      0.00337   0.00404  0.00721  6.79e-3  7.75e-3  0.0101 
-#&gt;  9  0.00218   0.00446      0.00171   0.00170  0.00221  4.03e-3  2.85e-3  0.00346
-#&gt; 10  0.0358    0.0401       0.00656   0.0154   0.0122   1.58e-3  3.36e-3  0.00278
-#&gt; # … with 353 more rows, 127 more variables: IPCONGD &lt;dbl&gt;, IPDCONGD &lt;dbl&gt;,
+#&gt;          RPI   W875RX1 DPCERA3M086SBEA CMRMTSPLx  RETAILx    INDPRO   IPFPNSS
+#&gt;        &lt;dbl&gt;     &lt;dbl&gt;           &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+#&gt;  1  0.00165   0.000812        0.00182    0.00402 -0.00300  0.00828   0.00851 
+#&gt;  2  0.00373   0.00275         0.000839   0.00664  0.00602  0.00759   0.00743 
+#&gt;  3  0.00533   0.00549         0.00515   -0.00874  0.00547  0.00322   0.00550 
+#&gt;  4  0.00417   0.00445         0.00270    0.0105   0.00280  0.000539 -0.00244 
+#&gt;  5 -0.000796 -0.00135         0.00334    0.0133   0.00708  0.00891   0.00998 
+#&gt;  6  0.00386   0.00381         0.00247   -0.0160   0.00324 -0.00557  -0.00114 
+#&gt;  7 -0.00383  -0.00495         0.00649    0.0138   0.00949  0.00314  -0.000570
+#&gt;  8 -0.00492  -0.00580         0.00337    0.00404  0.00721  0.00679   0.00775 
+#&gt;  9  0.00218   0.00446         0.00171    0.00170  0.00221  0.00403   0.00285 
+#&gt; 10  0.0358    0.0401          0.00656    0.0154   0.0122   0.00158   0.00336 
+#&gt; # ℹ 353 more rows
+#&gt; # ℹ 128 more variables: IPFINAL &lt;dbl&gt;, IPCONGD &lt;dbl&gt;, IPDCONGD &lt;dbl&gt;,
 #&gt; #   IPNCONGD &lt;dbl&gt;, IPBUSEQ &lt;dbl&gt;, IPMAT &lt;dbl&gt;, IPDMAT &lt;dbl&gt;, IPNMAT &lt;dbl&gt;,
 #&gt; #   IPMANSICS &lt;dbl&gt;, IPB51222S &lt;dbl&gt;, IPFUELS &lt;dbl&gt;, CUMFNS &lt;dbl&gt;, HWI &lt;dbl&gt;,
 #&gt; #   HWIURATIO &lt;dbl&gt;, CLF16OV &lt;dbl&gt;, CE16OV &lt;dbl&gt;, UNRATE &lt;dbl&gt;, UEMPMEAN &lt;dbl&gt;,
 #&gt; #   UEMPLT5 &lt;dbl&gt;, UEMP5TO14 &lt;dbl&gt;, UEMP15OV &lt;dbl&gt;, UEMP15T26 &lt;dbl&gt;,
-#&gt; #   UEMP27OV &lt;dbl&gt;, CLAIMSx &lt;dbl&gt;, PAYEMS &lt;dbl&gt;, USGOOD &lt;dbl&gt;,
-#&gt; #   CES1021000001 &lt;dbl&gt;, USCONS &lt;dbl&gt;, MANEMP &lt;dbl&gt;, DMANEMP &lt;dbl&gt;, …
+#&gt; #   UEMP27OV &lt;dbl&gt;, CLAIMSx &lt;dbl&gt;, PAYEMS &lt;dbl&gt;, USGOOD &lt;dbl&gt;, …
 </code></pre>
-<h2>Feature selection algorithms</h2>
+<h2 id="feature-selection-algorithms">Feature selection algorithms</h2>
 <p>We will fit each of the feature selection algorithms using the <code>regress</code> function in <code>tidyfit</code>, and will iteratively build a <code>tidyfit.models</code>-frame below.</p>
-<h3>Filter methods</h3>
+<h3 id="filter-methods">Filter methods</h3>
 <p>Filter methods are model-agnostic and perform univariate comparisons between each feature and the target. They encompass the simplest (and typically fastest) group of algorithms. One of the most basic forms of feature selection uses <strong>Pearson’s correlation</strong> coefficient. As with all <code>tidyfit</code> methods, <code>m(&quot;cor&quot;)</code> fits the method. The actual correlation coefficients will be obtained using <code>coef()</code>:</p>
 <pre><code class="language-r"># Correlation
 algorithms_df &lt;- data %&gt;% 
@@ -154,7 +218,7 @@ algorithms_df &lt;- algorithms_df %&gt;%
               `Information Gain` = m(&quot;relief&quot;, estimator = &quot;InfGain&quot;))
   )
 </code></pre>
-<h3>Wrapper methods</h3>
+<h3 id="wrapper-methods">Wrapper methods</h3>
 <p>The next set of methods perform iterative feature selection. The methods fit a model in a sequential manner, eliminating or adding features based on some criterion of model fit or predictive accuracy. We begin with <strong>forward selection</strong>, performed using <code>m(&quot;subset&quot;)</code>. Here we can specify the target model size directly:</p>
 <pre><code class="language-r"># Forward Selection
 algorithms_df &lt;- algorithms_df %&gt;% 
@@ -181,7 +245,7 @@ algorithms_df &lt;- algorithms_df %&gt;%
       regress(Target ~ ., MRMR = m(&quot;mrmr&quot;, feature_count = MODEL_SIZE))
   )
 </code></pre>
-<h3>Embedded methods</h3>
+<h3 id="embedded-methods">Embedded methods</h3>
 <p>The last group of feature selection algorithms, embedded methods, combine model selection and estimation into a single step — for instance, by forcing a subset of the parameter weights to be zero. The <strong>LASSO</strong> does this by introducing an \(L1\)-penalty on the parameters. Here we will use an expanding window grid search validation to determine the optimal penalty^[See <code>?rsample::rolling_origin</code> for details]:</p>
 <pre><code class="language-r"># LASSO
 algorithms_df &lt;- algorithms_df %&gt;% 
@@ -212,7 +276,7 @@ algorithms_df &lt;- algorithms_df %&gt;%
       regress(Target ~ ., `RF Importance` = m(&quot;rf&quot;))
   )
 </code></pre>
-<h2>Extracting the top models</h2>
+<h2 id="extracting-the-top-models">Extracting the top models</h2>
 <p>All information needed to select the top 10 features for each algorithm can be obtained using <code>coef(algorithms_df)</code> and unnesting the additional information stored in <code>model_info</code>:</p>
 <pre><code class="language-r">coef_df &lt;- coef(algorithms_df) %&gt;% 
   unnest(model_info)
@@ -314,9 +378,11 @@ boot_df &lt;- boot_models_df %&gt;%
 </code></pre>
 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAfgAAAC0CAMAAABPG87uAAACJVBMVEUAAAABAQECAgIDAwMEBAQFBQUGBgYHBwcICAgJCQkKCgoLCwsMDAwuLi4wMDA3Nzc4ODg6Ojo/Pz9CQkJFRUVLS0tMTExOTk5PT09SUlJTU1NUVFRVVVVWVlZXV1dYWFhbW1tcXFxdXV1eXl5fX19gYGBhYWFiYmJjY2NlZWVmZmZnZ2dpaWlqampsbGxtbW1wcHBxcXF1dXV2dnZ3d3d4eHh5eXl6enp7e3t8fHx+fn5/f3+AgICBgYGDg4OEhISFhYWGhoaHh4eIiIiJiYmKioqMjIyNjY2Ojo6Pj4+QkJCRkZGSkpKTk5OUlJSVlZWWlpaXl5eYmJiZmZmampqbm5ucnJydnZ2enp6fn5+goKChoaGioqKjo6OkpKSlpaWmpqanp6eoqKipqamqqqqrq6usrKytra2urq6vr6+wsLCxsbGysrKzs7O0tLS1tbW2tra4uLi5ubm6urq7u7u8vLy9vb2+vr6/v7/AwMDBwcHCwsLDw8PExMTFxcXGxsbHx8fIyMjJycnLy8vMzMzNzc3Ozs7Pz8/Q0NDS0tLT09PU1NTV1dXW1tbX19fY2NjZ2dna2trb29vc3Nzd3d3e3t7f39/g4ODh4eHi4uLj4+Pk5OTl5eXm5ubn5+fo6Ojp6enq6urr6+vs7Ozt7e3u7u7v7+/w8PDx8fHy8vLz8/P09PT19fX29vb39/f4+Pj5+fn6+vr7+/v8/Pz9/f3+/v7////8wD+rAAAACXBIWXMAAAsSAAALEgHS3X78AAALr0lEQVR4nO2di38TxxWFJZuGNG3T9J2UJjRpQmlpaEspfSThYRsLIbCNWCDYPIyIEWAHnEBowICTgBtogGADsalbSgwCPYwxyJ6/rzuzCEm7s4/ReOLV7jn+eSN075zc3Y8dc3dX4wiBQqnIfBcAzY8APqSyB386DQVU/3UE/5rDyD1C/59USihdzHw/zLnm++xjb6cdwS9xmCfuu08lFZqaEkoXM3+o1PyBQvNppeaT9rE+gHc1B3iZIgCeK4CXMgd4vjnAS5kDvEwRAG9WQ7SsOTdnAng5c0XgGxuoomw75+ZMAC9nrnI2bvB8stdgDvBy5gAvUwTAcwXwUuYAzxXAy5kDvEwRAM8VwEuZAzxXAC9nDvAyRfgD/Hcby3rOq3kYwb8xZa+MQ8yqXE4oXcw879V8QcVl0kav5lmhWsQqb4gqNHeqPB2uM96Q2DOGoTzjAR7gJYsAeK4AXsoc4LkCeJMAHuC9mAO8TBEAzxXAS5kDPFcAbxLAA7wXc4CXKQLguQJ4KXOA5yrQ4BeUb7ct8DoG4AMAPlrDxxIAPgDgmbwzZwJ4gPegb+AjVL74JM3wxm369npHByUF8OEB3zHT9x9CdnXuJmTs+OKH9so4xKzK54XSxcyjUaH0iFB2PieULlZ5Qal51j520AI+SQYuEfLOZO8oudy56IG9Mg4xq3JZoXQx82hUKD0ilK208rxS8/v2sQMW8Ntm+8YJ2Vg8+hXBVE8Vls/Hf7lJI4M3L8V2zBKApwoL+CoBPMBLFhEC8AsrriV5vYoI8FLmfgIfAfgqhQB8LeYAL2XuGXxjpCyvV00AXqoIf4CvxRzgpYoAeK4AXsoc4PnmAC9jDvBSRQA8VwAvZQ7wfHOAlzEHeKkiAJ4rgJcyB3i+OcDXaB4tX+dT9AivKvCuDx8HY/GjqMolhATXJ4oIZXtetsmQ58qfW6irMUq3C7kJwVj8SOlUL/gEtD/OeKZGh8ox1bsq8ODbzu9LmsMAHwLwSzmc/Q++ln9/AXwV+CU3b/7SHPY/eCala9kGHvzI75ZeMocBPvjgL57WZQ4DfPDB73mrqelP5jAffEPFA0yNHosAeK7mH/z/dr+4e/ePzGGnM15sDwGeq/kH/yi1dF/qU3MY4AMPnpDTd/542BwG+BCAf+Vwy+vmMMCHAPxv3xxebA4DfAjAv7fh/D5zGOCDD164jwd4ruoOvEAfbwjgTfpW5W868jhm/sE/7eONxY/OvRWjz+0AvAD4bzeU9YzHMfMPnvXxZ0hp8aNUYhcNA7zqpejmHTwhf3j++98jpcWPrhf7viQfvvqTe/aKOMSsuntXKP2OUHZGpXlDVKG50sobHSpPlcG/uffSclJa/OjE7Al6qw5nfAjO+Nc/3kzvxxuLH53bnHRb/Ajg58DcD+AHbqxYYw4DfODB4+6cnQIOHnfn7BRw8Lg7Z6fAg8fdOb4CDx535/gKPHjcneMr8OB5AvhwgH9kDgN88MGv+vEWIvRJmhCAV//5LB+A/w2JHQV4nnndLlvuDfyiO2TZC+YwwNcpeNe5qgx+6BgpLDeHAb5OwRvmntbAmblGSK85DPDBB//Kzzb+BT/jeeYBB/9r8nzCEl5StFfEIWbV5KRQ+j2h7AdKzQsKzaeUmuftY4efgl9GLBdsdfCP7BVxiFlVKAil3xPKnlRqnldo/kCl+WTOPnboKfgfbvvBtm0W8A4TCab6OTD3wVS/k8ocBvjgg+cK4AG+QuFaEQPgpYoAeK4AXsoc4PnmAC9lDvAyRQA8VwAvZQ7wfHOAlzIHeJkiAJ4rgJcyB3i+OcBLmQO8TBEAzxXAS5kDPN9cCLyx+BEZZU9lAHx4wBuLH810afQPAB8e8MbiR0du6eDPrnwxZ6+7DjGr7t0TShczv6/SvH4rv5+xj71nAW8sftTSvnyc5Md/NWfPf+GZO6588MxdScbiR4Rgqi+Zh2SqrxLAA7xkEQDPFcBLmQM83xzgpcwBXqYIgOcK4KXMAZ5vDvBS5gAvUwTAcwXwUuYAzzcHeClzgJcpAuC5Angpc4DnmwO8lDnAyxQB8FwBvJQ5wPPNAV7KPIzg35iyV8YhZlUuJ5QuZp5Xap5VaT5fladxxruah/GMnxPw6teABni+uR9+xkdVrvoeAvDfqeU3FgO8lLkvwD9Ty+8oB3gpc1+ANyS2xFx9ga9cS63B4xiA55vXFXhDYnsI8HxzgK8WwAO8F3OArxbAz4E5wJsE8FwBfLUAnm8O8NUC+G/oWn2FvI4BeJOeZYcvwrYLvJrPM/jG8lVmrxcbAd6sZyvOnnoBz+T5tiyu3M2deQ2rXp2Pd9E/4H58eMAbq15dmE3OkrHjix/aK+MQsyqfF0oXMy+oNM/nFJoXlJpn7WMHLeCNVa/IqbWz5Fr65Tl7DAiPXvHN/fPolbHq1VVy5BrBVM/MQzLVG6teDWzaME0AnpmHBHyVAD6k4H//qr1+6hCz6ueLhNLFzBepNP/FS/Vq/rKD+Uv/cATvJKfZwKp0n0Lz99MKzT/sVmh+slOh+VnNJaE28D1C2V9cVmh+5V8KzYcvKDS/PqTQfOwzl4TawBsqPJYYPM/uoZc38Ln4hs0zlW+wieRA1n4O7461Nc+yDUtniWcSPWtjH1hS+0eMoOltJ3euDyEHM5w3O5tbzlRW7ZZPh3SR28tY8eVXtrWQzqy+ef9dcr2lZZB+P9gUby3Yp5dqYtZ0nAexCmx2uiqvKba/+h3bY+gNfNcouZg519ZW3JlIJAaSmx5qgx1NxbUfaey97taitYQJsn2CbS7QdI1uVx/quc0x7x+hDqsPPfHf3bIv6eZOfYz01vtvZw7T9J2JE1tXcsFnZzpowsVkQhvfrrnm0yEJcmQ9K778yv7gMPCJtulDw+QT+p0aI1f32qeXamLWdJxzKhOrgHvwTHkZsmuCHZjSUdS4x494BR+nmy3k7IXkdHJ6Q2fimnbz/Dt3erIafW/r4/TX1hJif04ZG5au0W3vRE9TfNSS2j9CHXonSv5ts67u1MdI3zm4+tRXND05vZXs54Jfv+o4TdDIreSKx+75dMjB8VQ7K778yl4U/K2ujwemUx2f0W86dcUc8p/UxKzpOOdUJlYB9+CZ8jLkxBfGgXlyFDXu8SNewadukMEbHeTMBU2fLuMzVzJa8p87Jg5kNeO9Xuvfxe6J0Q5jw9I1uu3l/6XtH6EOvRMlf/3LzZ36GMGTsWPrZ2m6RraSHv4ZT1ppwhZype3YgHs+HTLe9UE7K778yl4UfGp9+5qjRdJGv/ePkVHXM560Mms6zjmViVXg7Yzf8fXT48h2k3v8iFfw2ab45uJQu/aYGn4eixW1bu2vYyfTmvEeFzzZc5FtWLpGty7gS/76l5s79TGCmb//ez2h6RoZSq7i/4xv3UsTPm9LaqT1tms+HVL42912Vnz5lf3B6WyODa8jZNOna2J9w/r3dCK+weHySakmZk3H3XXOpWIVeAHf1LyXPD2ObDflwEOBUyDAi3Z+9dkp1la13ShfgZ/auDF2h75wudRHmyb631J75thXrot1Gd1k2dUp3zcyutwKHch6GEV319MoX4FPXyW5UccmxBBtmliXSDd6m+bSVxJNY+0Nc3XrFH0jvculRe/Y21k0OteVH7E2VC9a32W657xRdHffvRmno2gKHcW39xX4ePFKvMexCTFEmybWJbINubXfqa9sjvdrGmtvmKtbp+gb9Y+worcXBy8bDVpPltZOi9Z3uVXfc94ouruF5aN0FD04dBTf3lfgey6Sh0nHJsQQbZpYl0g3epvW7dhX0jOe/SuXubp1ir4RbXb0r+2PTl01ij2QNdrQ3tv6Ljfre84bRXd3YsUQHcWOUH1M9VPx5nUjjk2IIdo0sS6RbvQ2zbGvXBfrqATv1in6Rk/Ab9W0GaPYk2mjDe29re8y3XPeKLq77Vm6yzPsCOmj+Pa+Ag9Z5XZ7tdZRAB9SAXxIBfAhFcCHVAAfUgF8SAXwIdX/AQnPIgQLEmsqAAAAAElFTkSuQmCC" alt="plot of chunk unnamed-chunk-18" style="display: block; margin: auto;" />
 <p>The filter methods as well as RF Importance tend to explain a relatively small proportion of the response variation, while BMA and subset selection algorithms perform best.</p>
-
-
-<script src="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/js/center-img.min.js" async></script>
+</div>
+<div class="include-after">
+</div>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-core.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/autoloader/prism-autoloader.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/combine/npm/katex/dist/katex.min.js,npm/katex/dist/contrib/auto-render.min.js,npm/@xiee/utils/js/render-katex.js" defer></script>
 </body>
-
 </html>

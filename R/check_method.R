@@ -1,7 +1,7 @@
 # Internal function to check valid usage of methods
 .check_method <- function(
     method,
-    what = c("exists", "cv", "uses_index", "regress", "classify", "multinomial"),
+    what = c("exists", "cv", "has_predict_method", "uses_index", "regress", "classify", "multinomial", "nonstandard_formula"),
     message = FALSE
     ) {
 
@@ -20,12 +20,21 @@
     methods = c("lm", "glm", "robust", "lasso", "ridge", "enet", "adalasso",
                 "pcr", "plsr", "hfr", "boost", "subset", "cor", "bayes", "quantile",
                 "glmm", "tvp", "mslm", "bma", "gets", "svm", "mrmr", "relief", "cor",
-                "chisq", "rf", "bridge", "blasso", "spikeslab", "genetic"),
+                "chisq", "rf", "bridge", "blasso", "spikeslab", "genetic",
+                "quantile_rf"),
     message = "'%s' is not a valid method. See '?m' for details"
   ),
   cv = list(
-    methods = c("lasso", "ridge", "enet", "adalasso", "pcr", "plsr", "hfr", "boost", "svm", "rf"),
+    methods = c("lasso", "ridge", "enet", "adalasso", "pcr", "plsr", "hfr", "boost", "svm", "rf", "quantile_rf"),
     message = "'%s' has no hyperparameters. Use '.force_cv = TRUE' to perform a cross validation"
+  ),
+  has_predict_method = list(
+    methods = c("lm", "glm", "robust", "lasso", "ridge", "enet", "adalasso",
+                "pcr", "plsr", "hfr", "boost", "subset", "bayes", "quantile",
+                "glmm", "tvp", "mslm", "bma", "gets", "svm",
+                "rf", "bridge", "blasso", "spikeslab", "genetic",
+                "quantile_rf"),
+    message = "'%s' has no predict method."
   ),
   uses_index = list(
     methods = c("glmm"),
@@ -35,7 +44,7 @@
     methods = c("lm", "glm", "robust", "lasso", "ridge", "enet", "adalasso",
                 "pcr", "plsr", "hfr", "boost", "subset", "cor", "bayes", "quantile",
                 "glmm", "tvp", "mslm", "bma", "gets", "svm", "mrmr", "relief", "cor", "rf", "bridge", "blasso",
-                "spikeslab", "genetic"),
+                "spikeslab", "genetic", "quantile_rf"),
     message = "'%s' cannot be used for regression"
   ),
   classify = list(
@@ -46,5 +55,9 @@
   multinomial = list(
     methods = c("ridge", "lasso", "enet", "adalasso", "svm", "mrmr", "relief", "chisq", "rf"),
     message = "'%s' cannot be used for multinomial classification"
+  ),
+  nonstandard_formula = list(
+    methods = c("glmm"),
+    message = "'%s' uses non-standard formula syntax"
   )
 )

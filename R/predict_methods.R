@@ -53,7 +53,7 @@
     data[, response_var] <- 0
     truth <- NULL
   }
-  if (!is.null(self$fit_info$names_map)) data <- data.frame(stats::model.matrix(self$formula, data))
+  if (self$force_syntactic_names) data <- data.frame(stats::model.matrix(self$formula, data))
   pred <- dplyr::tibble(
     prediction = stats::predict(object, data, type = "response"),
     truth = truth
@@ -114,22 +114,6 @@
     dplyr::as_tibble() %>%
     dplyr::mutate(truth = truth) %>%
     tidyr::pivot_longer(-any_of("truth"), names_to = "grid_id", values_to = "prediction")
-  return(pred)
-}
-
-#' @importFrom dplyr tibble
-#' @importFrom stats predict
-.predict.rq <- function(object, data, self = NULL, ...) {
-  response_var <- all.vars(self$formula)[1]
-  if (response_var %in% colnames(data)) {
-    truth <- data[, response_var]
-  } else {
-    truth <- NULL
-  }
-  pred <- dplyr::tibble(
-    prediction = stats::predict(object, data),
-    truth = truth
-  )
   return(pred)
 }
 
@@ -218,42 +202,3 @@
   return(pred)
 }
 
-.predict.svm <- function(object, data, self = NULL, ...) {
-  response_var <- all.vars(self$formula)[1]
-  if (response_var %in% colnames(data)) {
-    truth <- data[, response_var]
-  } else {
-    data[, response_var] <- 1
-    truth <- NULL
-  }
-  x <- stats::model.frame(self$formula, data)
-  pred_mat <- stats::predict(object, newdata = x, probability = TRUE)
-
-  if (is.factor(pred_mat)) {
-    pred_mat <- attr(pred_mat, "probabilities")
-    if (ncol(pred_mat) > 2) {
-      pred <- pred_mat %>%
-        dplyr::as_tibble() %>%
-        dplyr::mutate(row_n = dplyr::row_number())
-      if (!is.null(truth)) {
-        pred <- dplyr::mutate(pred, truth = truth)
-      }
-      pred <- pred %>%
-        tidyr::pivot_longer(-dplyr::any_of(c("truth", "row_n")),
-                            names_to = "class",
-                            values_to = "prediction") %>%
-        dplyr::select(-dplyr::any_of("row_n"))
-
-      return(pred)
-    } else {
-      pred_mat <- pred_mat[, 2]
-    }
-  }
-
-  pred <- dplyr::tibble(
-    prediction = pred_mat,
-    truth = truth
-  )
-
-  return(pred)
-}

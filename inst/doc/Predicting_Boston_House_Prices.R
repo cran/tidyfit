@@ -1,4 +1,4 @@
-## ---- include = FALSE---------------------------------------------------------
+## ----include = FALSE----------------------------------------------------------
 use_saved_results <- TRUE
 
 knitr::opts_chunk$set(
@@ -15,12 +15,12 @@ if (use_saved_results) {
   eval_frame <- results$eval_frame
 }
 
-## ---- eval=TRUE---------------------------------------------------------------
+## ----eval=TRUE----------------------------------------------------------------
 library(dplyr); library(tidyr); library(purrr) # Data wrangling
 library(ggplot2); library(stringr) # Plotting
 library(tidyfit)   # Auto-ML modeling
 
-## ---- eval=TRUE---------------------------------------------------------------
+## ----eval=TRUE----------------------------------------------------------------
 data <- MASS::Boston
 
 # For reproducibility
@@ -32,11 +32,11 @@ data_tst <- data[ix_tst,]
 
 as_tibble(data)
 
-## ---- eval=TRUE---------------------------------------------------------------
+## ----eval=TRUE----------------------------------------------------------------
 model_frame <- data_trn %>% 
   regress(medv ~ ., OLS = m("lm"))
 
-## ---- eval=TRUE---------------------------------------------------------------
+## ----eval=TRUE----------------------------------------------------------------
 assess <- function(model_frame, data_trn, data_tst) {
   
   oos <- model_frame %>% 
@@ -71,12 +71,12 @@ plotter <- function(df) {
     coord_cartesian(ylim = c(0.65, 0.95))
 }
 
-## ---- fig.width=3, fig.height=3, fig.align="center", eval=TRUE----------------
+## ----fig.width=3, fig.height=3, fig.align="center", eval=TRUE-----------------
 model_frame %>% 
   assess(data_trn, data_tst) %>% 
   plotter
 
-## ---- fig.width=3, fig.height=3, fig.align="center", eval=TRUE----------------
+## ----fig.width=3, fig.height=3, fig.align="center", eval=TRUE-----------------
 model_frame <- data_trn %>% 
   regress(medv ~ .*., OLS = m("lm"))
 
@@ -84,7 +84,7 @@ model_frame %>%
   assess(data_trn, data_tst) %>% 
   plotter
 
-## ---- echo = F, eval=TRUE-----------------------------------------------------
+## ----echo = F, eval=TRUE------------------------------------------------------
 library(kableExtra)
 tbl <- data.frame(
   `Best subset` = c("Exhaustive search (`leaps`)", "Forward selection (`leaps`)", "Backward selection (`leaps`)", "Sequential Replacement (`leaps`)", "Genetic Algorithm ('gaselect')"),
@@ -126,7 +126,7 @@ kbl(tbl, align = "ccccc") %>%
 #  eval_frame <- model_frame_all %>%
 #    assess(data_trn, data_tst)
 
-## ---- fig.width=7.25, fig.height=4.25, fig.align="center", eval=TRUE----------
+## ----fig.width=7.25, fig.height=4.25, fig.align="center", eval=TRUE-----------
 eval_frame %>% 
   plotter +
   theme(legend.position = "top", 

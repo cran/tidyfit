@@ -1,4 +1,4 @@
-## ---- include = FALSE---------------------------------------------------------
+## ----include = FALSE----------------------------------------------------------
 use_saved_results <- TRUE
 
 knitr::opts_chunk$set(
@@ -15,13 +15,13 @@ if (use_saved_results) {
   beta <- results$beta
 }
 
-## ---- eval=TRUE---------------------------------------------------------------
+## ----eval=TRUE----------------------------------------------------------------
 library(dplyr); library(tidyr); library(purrr) # Data wrangling
 library(ggplot2); library(stringr) # Plotting
 library(lubridate)   # Date calculations
 library(tidyfit)     # Model fitting
 
-## ---- eval=TRUE---------------------------------------------------------------
+## ----eval=TRUE----------------------------------------------------------------
 data <- Factor_Industry_Returns
 data <- data %>% 
   mutate(Date = ym(Date)) %>%         # Parse dates
@@ -29,7 +29,7 @@ data <- data %>%
   select(-RF)
 data
 
-## ---- eval=TRUE---------------------------------------------------------------
+## ----eval=TRUE----------------------------------------------------------------
 data <- data %>% 
   filter(Industry == "HiTec") %>% 
   select(-Industry)
@@ -59,7 +59,7 @@ data <- data %>%
 #    mutate(upper = ifelse(is.na(upper), estimate + 2*std.error, upper)) %>%
 #    mutate(date = coalesce(as.Date(index), as.Date(slice_id)))
 
-## ---- fig.width=7, fig.height=6, fig.align="center", eval=TRUE----------------
+## ----fig.width=7, fig.height=6, fig.align="center", eval=TRUE-----------------
 beta %>% 
   ggplot(aes(date, estimate)) +
   facet_wrap("term", scales = "free", ncol = 2) +

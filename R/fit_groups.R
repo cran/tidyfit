@@ -68,8 +68,8 @@
 
     }, .options = furrr::furrr_options(seed = TRUE))
 
-    # Only generate predictions, if CV slices are not returned
-    if (!row$return_slices) {
+    # Only generate predictions, if CV slices are not returned and the method has a predict method
+    if (!row$return_grid & row$model_object$has_predict_method) {
 
       # Out-of-sample predictions
       pred <- cv_res %>%
@@ -77,7 +77,7 @@
         purrr::map_dfr(function(row) {
           if (is.null(row$df_test) | is.null(row$model_object$object))
             return(NULL)
-          out <- row$model_object$predict(as.data.frame(row$df_test))
+          out <- row$model_object$predict(as.data.frame(row$df_test), training_context = TRUE)
           if (is.null(out))
             return(NULL)
           if (!"grid_id" %in% colnames(out)) {

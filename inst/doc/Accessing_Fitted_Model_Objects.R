@@ -1,4 +1,4 @@
-## ---- include = FALSE---------------------------------------------------------
+## ----include = FALSE----------------------------------------------------------
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
@@ -21,7 +21,7 @@ mod_frame
 ## -----------------------------------------------------------------------------
 mod_frame$model_object[[1]]
 
-## ---- fig.width=7, fig.height=6, fig.align='center'---------------------------
+## ----fig.width=7, fig.height=6, fig.align='center'----------------------------
 mod_frame %>% 
   filter(kappa == 1) %>% 
   pull(model_object) %>% 
@@ -33,7 +33,7 @@ mod_frame <- mod_frame %>%
   mutate(mod = map(model_object, ~.$object))
 mod_frame
 
-## ---- fig.width=7, fig.height=6, fig.align='center'---------------------------
+## ----fig.width=7, fig.height=6, fig.align='center'----------------------------
 # Store current par before editing
 old_par <- par()
 

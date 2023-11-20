@@ -1,4 +1,4 @@
-## ---- include = FALSE, eval=TRUE----------------------------------------------
+## ----include = FALSE, eval=TRUE-----------------------------------------------
 use_saved_results <- TRUE
 
 knitr::opts_chunk$set(
@@ -17,11 +17,11 @@ if (use_saved_results) {
   jackknife_estimates <- results$jackknife_estimates
 }
 
-## ---- eval=TRUE---------------------------------------------------------------
+## ----eval=TRUE----------------------------------------------------------------
 library(dplyr); library(tidyr); library(purrr); library(ggplot2) # Data wrangling
 library(tidyfit) # Model fitting
 
-## ---- eval=TRUE---------------------------------------------------------------
+## ----eval=TRUE----------------------------------------------------------------
 data <- MASS::Boston %>% 
   scale %>% 
   as_tibble
@@ -37,15 +37,15 @@ data <- MASS::Boston %>%
 #                    .add_bootstrap_interval = TRUE,
 #                    .bootstrap_alpha = 0.05)
 
-## ---- eval=TRUE---------------------------------------------------------------
+## ----eval=TRUE----------------------------------------------------------------
 estimates
 
-## ---- eval=TRUE---------------------------------------------------------------
+## ----eval=TRUE----------------------------------------------------------------
 estimates <- estimates %>% 
   unnest(model_info)
 estimates
 
-## ---- fig.width=7, fig.height=3.5, fig.align="center", eval=TRUE--------------
+## ----fig.width=7, fig.height=3.5, fig.align="center", eval=TRUE---------------
 estimates %>% 
   filter(term != "(Intercept)") %>% 
   ggplot(aes(term, estimate, color = model)) +
@@ -60,7 +60,7 @@ estimates %>%
 #  
 #  jackknife_estimates <- coef(model_frame_jackknife)
 
-## ---- eval = TRUE-------------------------------------------------------------
+## ----eval = TRUE--------------------------------------------------------------
 jackknife_estimates <- jackknife_estimates %>% 
   unnest(model_info) %>% 
   # Create approximate 95% intervals using 2 standard deviations
@@ -68,7 +68,7 @@ jackknife_estimates <- jackknife_estimates %>%
 
 jackknife_estimates
 
-## ---- fig.width=7, fig.height=3.5, fig.align="center", eval=TRUE--------------
+## ----fig.width=7, fig.height=3.5, fig.align="center", eval=TRUE---------------
 jackknife_estimates %>% 
   filter(term != "(Intercept)") %>% 
   ggplot(aes(term, estimate, color = model)) +

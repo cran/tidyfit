@@ -16,7 +16,7 @@ if (use_saved_results) {
   boot_df <- results$boot_df
 }
 
-## ---- eval=TRUE, class.source = "fold-hide"-----------------------------------
+## ----eval=TRUE, class.source = "fold-hide"------------------------------------
 library(dplyr); library(tidyr); library(purrr) # Data wrangling
 library(ggplot2); library(stringr) # Plotting
 library(tidyfit) # Model fitting
@@ -24,11 +24,11 @@ library(tidyfit) # Model fitting
 # Max model size
 MODEL_SIZE <- 10
 
-## ---- eval=TRUE---------------------------------------------------------------
+## ----eval=TRUE----------------------------------------------------------------
 # Load the data
 data <- readRDS("FRED-MD.rds")
 
-## ---- eval=TRUE---------------------------------------------------------------
+## ----eval=TRUE----------------------------------------------------------------
 data <- data %>% 
   arrange(date) %>% 
   # Shift the target by 1 month
@@ -151,7 +151,7 @@ data
 #               "S&P 500", "T10YFFM", "PERMIT", "AWHMAN")
 #    ))
 
-## ---- eval=T, class.source = 'fold-hide', fig.width=7, fig.height=2.5, fig.align='center'----
+## ----eval=T, class.source = 'fold-hide', fig.width=7, fig.height=2.5, fig.align='center'----
 model_df %>% 
   # Add 'FALSE' entries, when a feature is not selected
   mutate(selected = TRUE) %>% 
@@ -205,7 +205,7 @@ model_df %>%
 #    mutate(R2 = map_dbl(model_object, function(obj) summary(obj)$r.squared)) %>%
 #    select(model, R2)
 
-## ---- eval=T, class.source = 'fold-hide', fig.width=7, fig.height=2.5, fig.align='center'----
+## ----eval=T, class.source = 'fold-hide', fig.width=7, fig.height=2.5, fig.align='center'----
 boot_df %>% 
   group_by(model) %>% 
   mutate(upper = mean(R2) + 2 * sd(R2) / sqrt(n()),

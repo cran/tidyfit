@@ -1,4 +1,4 @@
-## ---- include = FALSE---------------------------------------------------------
+## ----include = FALSE----------------------------------------------------------
 use_saved_results <- TRUE
 
 knitr::opts_chunk$set(
@@ -15,13 +15,13 @@ if (use_saved_results) {
   df_beta <- results$df_beta
 }
 
-## ---- eval=TRUE---------------------------------------------------------------
+## ----eval=TRUE----------------------------------------------------------------
 library(dplyr); library(tidyr); library(purrr) # Data wrangling
 library(ggplot2); library(stringr) # Plotting
 library(lubridate)   # Date calculations
 library(tidyfit)     # Model fitting
 
-## ---- eval=TRUE---------------------------------------------------------------
+## ----eval=TRUE----------------------------------------------------------------
 data <- Factor_Industry_Returns
 data <- data %>% 
   mutate(Date = ym(Date)) %>%         # Parse dates
@@ -29,17 +29,17 @@ data <- data %>%
   select(-RF)
 data
 
-## ---- eval=TRUE---------------------------------------------------------------
+## ----eval=TRUE----------------------------------------------------------------
 data <- data %>% 
   group_by(Industry)
 
-## ---- eval=TRUE---------------------------------------------------------------
+## ----eval=TRUE----------------------------------------------------------------
 mod_frame <- data %>% 
   regress(Return ~ CMA + HML + `Mkt-RF` + RMW + SMB, m("lm"))
 
 mod_frame
 
-## ---- eval=TRUE---------------------------------------------------------------
+## ----eval=TRUE----------------------------------------------------------------
 mod_frame_hac <- data %>% 
   regress(Return ~ CMA + HML + `Mkt-RF` + RMW + SMB, m("lm", vcov. = "HAC"))
 
@@ -55,18 +55,18 @@ mod_frame_hac
 ## -----------------------------------------------------------------------------
 #  df_beta <- coef(mod_frame_rolling)
 
-## ---- eval=TRUE---------------------------------------------------------------
+## ----eval=TRUE----------------------------------------------------------------
 df_beta
 
-## ---- eval=TRUE---------------------------------------------------------------
+## ----eval=TRUE----------------------------------------------------------------
 df_beta <- df_beta %>% 
   unnest(model_info) %>% 
   mutate(upper = estimate + 2 * std.error, lower = estimate - 2 * std.error)
 
-## ---- eval=TRUE---------------------------------------------------------------
+## ----eval=TRUE----------------------------------------------------------------
 df_beta
 
-## ---- fig.width=7, fig.height=5, fig.align="center", eval=TRUE----------------
+## ----fig.width=7, fig.height=5, fig.align="center", eval=TRUE-----------------
 df_beta %>% 
   mutate(slice_id = as.Date(slice_id)) %>% 
   filter(term == "Mkt-RF") %>% 
@@ -77,7 +77,7 @@ df_beta %>%
   geom_line(aes(y = estimate)) +
   theme_bw(8)
 
-## ---- fig.width=7, fig.height=5, fig.align="center", eval=TRUE----------------
+## ----fig.width=7, fig.height=5, fig.align="center", eval=TRUE-----------------
 df_beta %>% 
   mutate(slice_id = as.Date(slice_id)) %>% 
   filter(term == "(Intercept)") %>% 
@@ -88,7 +88,7 @@ df_beta %>%
   geom_line(aes(y = estimate)) +
   theme_bw(8)
 
-## ---- fig.width=6, fig.height=4.25, fig.align="center", eval=TRUE-------------
+## ----fig.width=6, fig.height=4.25, fig.align="center", eval=TRUE--------------
 df_beta %>% 
   mutate(slice_id = as.Date(slice_id)) %>% 
   filter(Industry == "HiTec") %>% 

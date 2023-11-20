@@ -1,4 +1,4 @@
-## ---- include = FALSE---------------------------------------------------------
+## ----include = FALSE----------------------------------------------------------
 use_saved_results <- TRUE
 
 knitr::opts_chunk$set(
@@ -15,12 +15,12 @@ if (use_saved_results) {
   pred <- results$pred
 }
 
-## ---- eval=TRUE---------------------------------------------------------------
+## ----eval=TRUE----------------------------------------------------------------
 library(dplyr); library(tidyr); library(purrr) # Data wrangling
 library(ggplot2); library(stringr) # Plotting
 library(tidyfit)   # Auto-ML modeling
 
-## ---- eval=TRUE---------------------------------------------------------------
+## ----eval=TRUE----------------------------------------------------------------
 data("iris")
 
 # For reproducibility
@@ -47,7 +47,7 @@ as_tibble(iris)
 #  pred <- fit %>%
 #    predict(data_tst)
 
-## ---- fig.width=7, fig.height=3, fig.align="center", eval=TRUE----------------
+## ----fig.width=7, fig.height=3, fig.align="center", eval=TRUE-----------------
 metrics <- pred %>% 
   group_by(model, class) %>% 
   mutate(row_n = row_number()) %>% 

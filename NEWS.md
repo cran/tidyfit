@@ -1,3 +1,14 @@
+## tidyfit 0.7.0
+
+This version adds several new features and methods:
+
+- More generic handling of non-syntactic names
+- New methods:
+  - 'anova' for analysis of variance on glm objects
+  - 'nnet' for single-layer neural networks
+- An explain() generic which provides a convenience wrapper for methods from several variable importance packages
+- Several bugfixes and improved error handling
+
 ## tidyfit 0.6.5
 
 This version adds a new regression method:

@@ -10,6 +10,8 @@
 #'
 #' \code{"glm"} performs a generalized regression or classification using \code{stats::glm}. See \code{\link{.fit.glm}} for details.
 #'
+#' \code{"anova"} performs analysis of variance using \code{stats::anova}. See \code{\link{.fit.anova}} for details.
+#'
 #' \code{"robust"} performs a robust regression using \code{MASS::rlm}. See \code{\link{.fit.robust}} for details.
 #'
 #' \code{"quantile"} performs a quantile regression using \code{quantreg::rq}. See \code{\link{.fit.quantile}} for details.
@@ -31,6 +33,8 @@
 #' \code{"rf"} performs a random forest regression or classification using \code{randomForest::randomForest}. See \code{\link{.fit.rf}} for details.
 #'
 #' \code{"svm"} performs a support vector regression or classification using \code{e1071::svm}. See \code{\link{.fit.svm}} for details.
+#'
+#' \code{"nnet"} performs a neural network regression or classification using \code{nnet::nnet}. See \code{\link{.fit.nnet}} for details.
 #'
 #' ### Factor regressions
 #'
@@ -119,6 +123,7 @@ m <- function(
 ) {
   if (!is.null(data) & is.null(formula))
     stop("'formula' cannot be missing when 'data' is provided")
+  .check_method(model_method, "exists", TRUE)
   if (!.check_package_name(model_method))
     stop(sprintf("Package '%s' is required for method '%s'. Run install.packages('%s').",
                  .get_package_name(model_method), model_method, .get_package_name(model_method)))
@@ -142,7 +147,10 @@ m <- function(
   }
 
   mods <- .make_model_cols(mods)
-  mods <- .unnest_args(mods)
+  mods <- dplyr::group_by(mods, r = dplyr::row_number()) |>
+    dplyr::group_split() |>
+    purrr::map_dfr(.unnest_args) |>
+    dplyr::select(-"r")
   col_ord <- c("estimator_fct", "size (MB)", "grid_id", "model_object", "settings", "errors", "warnings", "messages")
   mods <- dplyr::relocate(mods, any_of(col_ord)) %>%
     dplyr::arrange(.data$grid_id)

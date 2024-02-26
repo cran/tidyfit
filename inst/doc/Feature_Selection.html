@@ -270,16 +270,14 @@ algorithms_df &lt;- algorithms_df %&gt;%
 </code></pre>
 <p>Last, but not least, <strong>Random Forests importance</strong> is a popular machine learning technique for model selection. We estimate a simple random forest using default settings, with <code>m(&quot;rf&quot;)</code>, which is a wrapper for the <code>randomForest</code>-package. Note that <code>importance = TRUE</code> by default, thus feature importances are computed and can be accessed using <code>coef</code>:</p>
 <pre><code class="language-r"># Random Forest Importance
-algorithms_df &lt;- algorithms_df %&gt;% 
-  bind_rows(
-    data %&gt;% 
+nonlinear_algorithms_df &lt;- data %&gt;% 
       regress(Target ~ ., `RF Importance` = m(&quot;rf&quot;))
-  )
 </code></pre>
 <h2 id="extracting-the-top-models">Extracting the top models</h2>
 <p>All information needed to select the top 10 features for each algorithm can be obtained using <code>coef(algorithms_df)</code> and unnesting the additional information stored in <code>model_info</code>:</p>
 <pre><code class="language-r">coef_df &lt;- coef(algorithms_df) %&gt;% 
-  unnest(model_info)
+  unnest(model_info) %&gt;%
+  bind_rows(explain(nonlinear_algorithms_df))
 </code></pre>
 <p>Some algorithms return more than the maximum 10 variables. For instance, the filter methods (correlation, RReliefF and information gain) return a score for each feature. The below code chunk selects the top 10 features for each algorithm:</p>
 <pre><code class="language-r">model_df &lt;- coef_df %&gt;% 
@@ -293,7 +291,7 @@ algorithms_df &lt;- algorithms_df %&gt;%
     # BMA features are selected using the posterior inclusion probability
     model == &quot;BMA&quot; ~ rank(-pip) &lt;= MODEL_SIZE,
     # The RF importance is stored in a separate column (%IncMSE)
-    model == &quot;RF Importance&quot; ~ rank(-`%IncMSE`) &lt;= MODEL_SIZE,
+    model == &quot;RF Importance&quot; ~ rank(-importance) &lt;= MODEL_SIZE,
     # For all other methods keep all features
     TRUE ~ TRUE
   )) %&gt;% 

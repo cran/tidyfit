@@ -40,7 +40,7 @@
 #' # Within 'regress' function
 #' fit <- regress(data, Return ~ .,
 #'                m("quantile_rf", tau = c(0.1, 0.5, 0.9), ntree = 50))
-#' coef(fit)
+#' explain(fit)
 #'
 #' @seealso \code{\link{.fit.quantile}}, \code{\link{.fit.rf}} and \code{\link{m}} methods
 #'
@@ -86,7 +86,7 @@
   }
   if (self$mode == "regression") {
     if (!training_context) {
-      tau <- self$args$tau[[1]]
+      tau <- self$args$tau
     } else {
       tau <- 0.5
     }
@@ -103,6 +103,7 @@
         dplyr::mutate(truth = truth) %>%
         tidyr::gather("tau", "prediction", -any_of(c("truth")))
     }
+    pred <- dplyr::mutate(pred, tau = as.numeric(tau))
   } else {
 
   }

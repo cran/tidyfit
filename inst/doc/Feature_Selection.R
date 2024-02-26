@@ -112,15 +112,13 @@ data
 
 ## -----------------------------------------------------------------------------
 #  # Random Forest Importance
-#  algorithms_df <- algorithms_df %>%
-#    bind_rows(
-#      data %>%
+#  nonlinear_algorithms_df <- data %>%
 #        regress(Target ~ ., `RF Importance` = m("rf"))
-#    )
 
 ## -----------------------------------------------------------------------------
 #  coef_df <- coef(algorithms_df) %>%
-#    unnest(model_info)
+#    unnest(model_info) %>%
+#    bind_rows(explain(nonlinear_algorithms_df))
 
 ## -----------------------------------------------------------------------------
 #  model_df <- coef_df %>%
@@ -134,7 +132,7 @@ data
 #      # BMA features are selected using the posterior inclusion probability
 #      model == "BMA" ~ rank(-pip) <= MODEL_SIZE,
 #      # The RF importance is stored in a separate column (%IncMSE)
-#      model == "RF Importance" ~ rank(-`%IncMSE`) <= MODEL_SIZE,
+#      model == "RF Importance" ~ rank(-importance) <= MODEL_SIZE,
 #      # For all other methods keep all features
 #      TRUE ~ TRUE
 #    )) %>%

@@ -195,16 +195,16 @@ mod_frame
 #&gt; # A tibble: 10 × 7
 #&gt;    Industry model estimator_fct `size (MB)` grid_id  model_object settings
 #&gt;    &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;               &lt;dbl&gt; &lt;chr&gt;    &lt;list&gt;       &lt;list&gt;  
-#&gt;  1 Durbl    lm    stats::lm           0.453 #0010000 &lt;tidyFit&gt;    &lt;tibble&gt;
-#&gt;  2 Enrgy    lm    stats::lm           0.453 #0010000 &lt;tidyFit&gt;    &lt;tibble&gt;
-#&gt;  3 HiTec    lm    stats::lm           0.453 #0010000 &lt;tidyFit&gt;    &lt;tibble&gt;
-#&gt;  4 Hlth     lm    stats::lm           0.453 #0010000 &lt;tidyFit&gt;    &lt;tibble&gt;
-#&gt;  5 Manuf    lm    stats::lm           0.453 #0010000 &lt;tidyFit&gt;    &lt;tibble&gt;
-#&gt;  6 NoDur    lm    stats::lm           0.453 #0010000 &lt;tidyFit&gt;    &lt;tibble&gt;
-#&gt;  7 Other    lm    stats::lm           0.453 #0010000 &lt;tidyFit&gt;    &lt;tibble&gt;
-#&gt;  8 Shops    lm    stats::lm           0.453 #0010000 &lt;tidyFit&gt;    &lt;tibble&gt;
-#&gt;  9 Telcm    lm    stats::lm           0.453 #0010000 &lt;tidyFit&gt;    &lt;tibble&gt;
-#&gt; 10 Utils    lm    stats::lm           0.453 #0010000 &lt;tidyFit&gt;    &lt;tibble&gt;
+#&gt;  1 Durbl    lm    stats::lm           0.496 #0010000 &lt;tidyFit&gt;    &lt;tibble&gt;
+#&gt;  2 Enrgy    lm    stats::lm           0.496 #0010000 &lt;tidyFit&gt;    &lt;tibble&gt;
+#&gt;  3 HiTec    lm    stats::lm           0.496 #0010000 &lt;tidyFit&gt;    &lt;tibble&gt;
+#&gt;  4 Hlth     lm    stats::lm           0.496 #0010000 &lt;tidyFit&gt;    &lt;tibble&gt;
+#&gt;  5 Manuf    lm    stats::lm           0.496 #0010000 &lt;tidyFit&gt;    &lt;tibble&gt;
+#&gt;  6 NoDur    lm    stats::lm           0.496 #0010000 &lt;tidyFit&gt;    &lt;tibble&gt;
+#&gt;  7 Other    lm    stats::lm           0.496 #0010000 &lt;tidyFit&gt;    &lt;tibble&gt;
+#&gt;  8 Shops    lm    stats::lm           0.496 #0010000 &lt;tidyFit&gt;    &lt;tibble&gt;
+#&gt;  9 Telcm    lm    stats::lm           0.496 #0010000 &lt;tidyFit&gt;    &lt;tibble&gt;
+#&gt; 10 Utils    lm    stats::lm           0.496 #0010000 &lt;tidyFit&gt;    &lt;tibble&gt;
 </code></pre>
 <p>The model frame now contains 10 regressions estimated using <code>stats::lm</code>. We may want to fit the regression using a heteroscedasticity and autocorrelation consistent (HAC) estimate of the covariance matrix, since we are working with financial time series. This can be done by passing the additional argument to <code>m(...)</code>:^[Note that the <code>...</code> in <code>m()</code> passes arguments to the underlying method (i.e. <code>stats::lm</code>). However in some cases <code>tidyfit</code> adds convenience functions, such as the ability to pass a <code>vcov.</code> argument as used in <code>coeftest</code> for <code>lm</code>.]</p>
 <pre><code class="language-r">mod_frame_hac &lt;- data %&gt;% 
@@ -214,16 +214,16 @@ mod_frame_hac
 #&gt; # A tibble: 10 × 7
 #&gt;    Industry model estimator_fct `size (MB)` grid_id  model_object settings
 #&gt;    &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;               &lt;dbl&gt; &lt;chr&gt;    &lt;list&gt;       &lt;list&gt;  
-#&gt;  1 Durbl    lm    stats::lm           0.453 #0010000 &lt;tidyFit&gt;    &lt;tibble&gt;
-#&gt;  2 Enrgy    lm    stats::lm           0.453 #0010000 &lt;tidyFit&gt;    &lt;tibble&gt;
-#&gt;  3 HiTec    lm    stats::lm           0.453 #0010000 &lt;tidyFit&gt;    &lt;tibble&gt;
-#&gt;  4 Hlth     lm    stats::lm           0.453 #0010000 &lt;tidyFit&gt;    &lt;tibble&gt;
-#&gt;  5 Manuf    lm    stats::lm           0.453 #0010000 &lt;tidyFit&gt;    &lt;tibble&gt;
-#&gt;  6 NoDur    lm    stats::lm           0.453 #0010000 &lt;tidyFit&gt;    &lt;tibble&gt;
-#&gt;  7 Other    lm    stats::lm           0.453 #0010000 &lt;tidyFit&gt;    &lt;tibble&gt;
-#&gt;  8 Shops    lm    stats::lm           0.453 #0010000 &lt;tidyFit&gt;    &lt;tibble&gt;
-#&gt;  9 Telcm    lm    stats::lm           0.453 #0010000 &lt;tidyFit&gt;    &lt;tibble&gt;
-#&gt; 10 Utils    lm    stats::lm           0.453 #0010000 &lt;tidyFit&gt;    &lt;tibble&gt;
+#&gt;  1 Durbl    lm    stats::lm           0.496 #0010000 &lt;tidyFit&gt;    &lt;tibble&gt;
+#&gt;  2 Enrgy    lm    stats::lm           0.496 #0010000 &lt;tidyFit&gt;    &lt;tibble&gt;
+#&gt;  3 HiTec    lm    stats::lm           0.496 #0010000 &lt;tidyFit&gt;    &lt;tibble&gt;
+#&gt;  4 Hlth     lm    stats::lm           0.496 #0010000 &lt;tidyFit&gt;    &lt;tibble&gt;
+#&gt;  5 Manuf    lm    stats::lm           0.496 #0010000 &lt;tidyFit&gt;    &lt;tibble&gt;
+#&gt;  6 NoDur    lm    stats::lm           0.496 #0010000 &lt;tidyFit&gt;    &lt;tibble&gt;
+#&gt;  7 Other    lm    stats::lm           0.496 #0010000 &lt;tidyFit&gt;    &lt;tibble&gt;
+#&gt;  8 Shops    lm    stats::lm           0.496 #0010000 &lt;tidyFit&gt;    &lt;tibble&gt;
+#&gt;  9 Telcm    lm    stats::lm           0.496 #0010000 &lt;tidyFit&gt;    &lt;tibble&gt;
+#&gt; 10 Utils    lm    stats::lm           0.496 #0010000 &lt;tidyFit&gt;    &lt;tibble&gt;
 </code></pre>
 <p>A rolling window regression can be estimated by specifying an appropriate cross validation method. <code>tidyfit</code> uses the <code>rsample</code> package from the <code>tidymodels</code> suite to create cross validation slices. Apart from the classic CV methods (vfold, loo, expanding window, train/test split), this also includes sliding functions (<code>sliding_window</code>, <code>sliding_index</code> and <code>sliding_period</code>), as well as <code>bootstraps</code>. The sliding functions do not generate a validation slice, but only create rolling window training slices. We will be using <code>sliding_index</code>, which works well with date indices. See <code>?rsample::sliding_index</code> for specifics.^[It is important to note that <code>sliding_index</code> can not be used to select hyperparameters since no test slices are produced. To perform time series CV, use the <code>rolling_origin</code> setting, which is similar, but produces train and test splits.]</p>
 <p>Since the method <code>lm</code> has no hyperparameters, it is not passed to the cross validation loop by default, since this would create unnecessary computational overhead. To ensure that models are fitted on train slices, we need to add the additional argument <code>.force_cv = TRUE</code>. Furthermore, the CV slices are typically not returned but only used to select optimal hyperparameters. To return slices set <code>.return_slices = TRUE</code>:</p>

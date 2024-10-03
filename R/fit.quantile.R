@@ -78,7 +78,7 @@
   pred <- dplyr::tibble(
     prediction = stats::predict(object, data),
     truth = truth,
-    tau = self$args$tau
+    tau = as.numeric(self$args$tau)
   )
   return(pred)
 }
@@ -91,7 +91,7 @@
     truth <- NULL
   }
   pred_mat <- stats::predict(object, data)
-  tau <- self$args$tau
+  tau <- sort(self$args$tau)
   if (length(tau) == 1) {
     pred <- dplyr::tibble(prediction = pred_mat, truth = truth, tau = tau)
   } else {
@@ -100,7 +100,8 @@
     pred <- dplyr::tibble(pred_mat) %>%
       dplyr::mutate(truth = truth) %>%
       tidyr::gather("tau", "prediction", -.data$truth) %>%
-      dplyr::select(.data$prediction, .data$truth, .data$tau)
+      dplyr::select(.data$prediction, .data$truth, .data$tau) %>%
+      dplyr::mutate(tau = as.numeric(.data$tau))
   }
   return(pred)
 }

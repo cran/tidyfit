@@ -33,12 +33,8 @@
 #' # Load data
 #' data <- tidyfit::Factor_Industry_Returns
 #'
-#' # Stand-alone function
-#' fit <- m("genetic", Return ~ ., data)
-#' fit
-#'
-#' # Within 'regress' function
-#' fit <- regress(data, Return ~ ., m("genetic"),
+#' # Generally used inside 'regress' function
+#' fit <- regress(data, Return ~ ., m("genetic", statistic = "BIC"),
 #'                .mask = c("Date", "Industry"))
 #' coef(fit)
 #'
@@ -65,6 +61,7 @@
                 minVariables = 1,
                 maxVariables = ncol(x),
                 seed = 123,
+                numThreads = 1,
                 overwrite = FALSE)
 
   incl_intercept <- "(Intercept)" %in% colnames(x)

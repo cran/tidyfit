@@ -1,6 +1,6 @@
-a0df2a906b5487ef5907bd2bddd65eab *DESCRIPTION
+7edf039f7c82ac088eb4ae6156e50667 *DESCRIPTION
 ef837dfa7822e1aed1b725e2f8f5c6a3 *NAMESPACE
-e4ce62f63394a8793904eb43ea352bc2 *NEWS.md
+0874f83d5ffb30fc87feddf8b8f9f6bc *NEWS.md
 a401d9b9bc1f303d02bc3c05d696f4b1 *R/check_explain_method.R
 f582108998994494770ea830c100d249 *R/check_method.R
 88cc19039ca7f1319f0a516912b82283 *R/check_package_name.R
@@ -11,8 +11,8 @@ bcb971a5ed01873a283ef4e2f906aade *R/classify.R
 d25f9d37fec414a2a520782556118dfa *R/data.R
 8ed350a84f53289abcf24bed6e4675df *R/default_hp_grid.R
 57d92cadca16334f5fa4cbad23904619 *R/eval_metrics.R
-7950fc30775de64cc8f4baeac8f20012 *R/explain.R
-0144b41b3f07645d2e2d2d0765d09314 *R/explain.tidyfit.models.R
+b15a4ada863e3ea74476b3c930339eeb *R/explain.R
+2ae48b036de545ac643dee2d1dae4c0d *R/explain.tidyfit.models.R
 d9845465f35938d3488b83419b89a527 *R/explain_methods.R
 b4900133bad8dfa154547f9cf45343aa *R/fit.R
 a170f1aa2ea9d136b4875210ca89808e *R/fit.adalasso.R
@@ -25,11 +25,11 @@ c153ab611c505a470e2dd0f77521d812 *R/fit.bridge.R
 625d7183ded7a25815db8ba0756d13c1 *R/fit.chisq.R
 12d3ee48ab7c87c8a0c80add5fa0d74a *R/fit.cor.R
 67abbbf934c2070b6c0488d4a408eff9 *R/fit.enet.R
-2958f7215bcf43d4dedbb209af5d12e4 *R/fit.genetic.R
+0adac6c63b84e049a760d4b4e5734a0e *R/fit.genetic.R
 176b969cd5bb831ad12230b6704cad4c *R/fit.gets.R
 997bfc0e751602661d66cbe3d6375289 *R/fit.glm.R
 cf69a0046040a762d7c3b5dc528d4c28 *R/fit.glmm.R
-0dbf86e913f99c97923a6995b7218076 *R/fit.group_lasso.R
+476ed3aad1719d904cd44cb76ab34745 *R/fit.group_lasso.R
 2325dffe92c573f493d588892246bc0f *R/fit.hfr.R
 3ced413b2f89c1a45d27ce515299d840 *R/fit.lasso.R
 348c20e9395e7c26daaaa74b85dfffc3 *R/fit.lm.R
@@ -78,9 +78,9 @@ be183302c4ecb2cad516745175558d50 *R/utils.R
 fc87931e86f4df01c3749d439d5eaf2c *inst/doc/Bootstrapping_Confidence_Intervals.R
 9037e88bcc1b4a02eaab244f9bb8578b *inst/doc/Bootstrapping_Confidence_Intervals.Rmd
 c85fcd0647e3a7f735b37abcc79e42ae *inst/doc/Bootstrapping_Confidence_Intervals.html
-9ba80a12fbe474a548fae64f89001b0c *inst/doc/Feature_Selection.R
-8953841db8acd837c0a9cc6fc3c8a8f6 *inst/doc/Feature_Selection.Rmd
-56f098f924d3ba455816b4764798ed1b *inst/doc/Feature_Selection.html
+fdfdb52dc40ada3621737f9965627c77 *inst/doc/Feature_Selection.R
+4795c092b00912295404b495db9e3b12 *inst/doc/Feature_Selection.Rmd
+8c34f473257581703741cd642e20934e *inst/doc/Feature_Selection.html
 da2f8c4bc4c2a1d2f0c393682b364b39 *inst/doc/Flowchart.R
 93fcebcb7f24acd4ebe7ada26edb6a7c *inst/doc/Flowchart.Rmd
 1b34a928d8894194b47e5bee62d3032c *inst/doc/Flowchart.html
@@ -109,7 +109,7 @@ ff7c68085d94304048f9cea2e2786b6b *man/dot-fit.bridge.Rd
 7fe36fc25d472d312f87874526a8c3d5 *man/dot-fit.chisq.Rd
 c1625a7b091873ceeeb6789a61c930d0 *man/dot-fit.cor.Rd
 e2b3a47aa97d87c0f8ad0dbe71c67a5d *man/dot-fit.enet.Rd
-d7f960f428d2ff70ab826b294f9852c6 *man/dot-fit.genetic.Rd
+e4bb37c815ba75838337fb9a2d42790c *man/dot-fit.genetic.Rd
 e7f4f7d5d1c52acabc3290dcb273a294 *man/dot-fit.gets.Rd
 a98de063b481403804787952ac9d6973 *man/dot-fit.glm.Rd
 427c945f8d0cca4b311388cd89892ff2 *man/dot-fit.glmm.Rd
@@ -132,8 +132,8 @@ e5ef44cba15e158fd96a3e0a0d90ec87 *man/dot-fit.robust.Rd
 5a263819fa0be8b39d56a93722124d5a *man/dot-fit.subset.Rd
 0f7c03cb7ee146db745b48cc1470934c *man/dot-fit.svm.Rd
 5f4521ad1d1971b06b0209f4c4d86056 *man/dot-fit.tvp.Rd
-e4fe837a90c8c5e335205deef87ee688 *man/explain.Rd
-f232bb19168709f066cc399d8f483a69 *man/explain.tidyfit.models.Rd
+7ab6fddf8fcceeeb3daf83b2a3939b5a *man/explain.Rd
+d759777065c7090b66f3b61b2905a017 *man/explain.tidyfit.models.Rd
 b97af9a8a20b97bb6b1f94f0c58ef577 *man/figures/README-unnamed-chunk-14-1.png
 c93f57572578d8ecf4abd285ba1e9fb1 *man/figures/logo.png
 29a900136ff700db6a3d958e4843191a *man/figures/logo_white.png
@@ -172,7 +172,7 @@ cf8dc09aab5dcb4f0a0ed986c3736c06 *tests/testthat/test-svm.R
 76266ac58287c47d28cd0868ea0beb0f *vignettes/Accessing_Fitted_Model_Objects.Rmd
 9037e88bcc1b4a02eaab244f9bb8578b *vignettes/Bootstrapping_Confidence_Intervals.Rmd
 c3a3fe289f08a8f4942af45dceea8920 *vignettes/FRED-MD.rds
-8953841db8acd837c0a9cc6fc3c8a8f6 *vignettes/Feature_Selection.Rmd
+4795c092b00912295404b495db9e3b12 *vignettes/Feature_Selection.Rmd
 93fcebcb7f24acd4ebe7ada26edb6a7c *vignettes/Flowchart.Rmd
 3bcbf1d9115244fa3567c21e94bc896d *vignettes/Multinomial_Classification.Rmd
 6c4071b224c8fde1f3b608cf3e7adba1 *vignettes/Predicting_Boston_House_Prices.Rmd

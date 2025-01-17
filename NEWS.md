@@ -1,3 +1,10 @@
+## tidyfit 0.7.3
+
+This version includes two minor changes:
+
+ - Minor bugfixes
+ - Improves handling of groups for 'group_lasso' (for instance, missing groups, empty groups and ungrouped variables)
+ 
 ## tidyfit 0.7.2
 
 This version adds new methods and features:

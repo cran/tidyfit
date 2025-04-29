@@ -23,44 +23,44 @@ library(tidyfit)     # Model fitting
 
 ## ----eval=TRUE----------------------------------------------------------------
 data <- Factor_Industry_Returns
-data <- data %>% 
-  mutate(Date = ym(Date)) %>%         # Parse dates
-  mutate(Return = Return - RF) %>%    # Excess return
+data <- data |>
+  mutate(Date = ym(Date)) |>         # Parse dates
+  mutate(Return = Return - RF) |>    # Excess return
   select(-RF)
 data
 
 ## ----eval=TRUE----------------------------------------------------------------
-data <- data %>% 
-  filter(Industry == "HiTec") %>% 
+data <- data |>
+  filter(Industry == "HiTec") |>
   select(-Industry)
 
 ## -----------------------------------------------------------------------------
-#  mod_rolling <- data %>%
-#    regress(Return ~ CMA + HML + `Mkt-RF` + RMW + SMB,
-#            m("lm", vcov. = "HAC"),
-#            .cv = "sliding_index", .cv_args = list(lookback = years(5), step = 6, index = "Date"),
-#            .force_cv = TRUE, .return_slices = TRUE)
+# mod_rolling <- data |>
+#   regress(Return ~ CMA + HML + `Mkt-RF` + RMW + SMB,
+#           m("lm", vcov. = "HAC"),
+#           .cv = "sliding_index", .cv_args = list(lookback = years(5), step = 6, index = "Date"),
+#           .force_cv = TRUE, .return_slices = TRUE)
 
 ## -----------------------------------------------------------------------------
-#  mod_tvp <- data %>%
-#    regress(Return ~ .,
-#            m("tvp", sv = TRUE, niter = 1000, index_col = "Date"))
+# mod_tvp <- data |>
+#   regress(Return ~ .,
+#           m("tvp", sv = TRUE, niter = 1000, index_col = "Date"))
 
 ## -----------------------------------------------------------------------------
-#  mod_frame <- bind_rows(mod_rolling, mod_tvp)
+# mod_frame <- bind_rows(mod_rolling, mod_tvp)
 
 ## -----------------------------------------------------------------------------
-#  beta <- coef(mod_frame)
+# beta <- coef(mod_frame)
 
 ## -----------------------------------------------------------------------------
-#  beta <- beta %>%
-#    unnest(model_info) %>%
-#    mutate(lower = ifelse(is.na(lower), estimate - 2*std.error, lower)) %>%
-#    mutate(upper = ifelse(is.na(upper), estimate + 2*std.error, upper)) %>%
-#    mutate(date = coalesce(as.Date(index), as.Date(slice_id)))
+# beta <- beta |>
+#   unnest(model_info) |>
+#   mutate(lower = ifelse(is.na(lower), estimate - 2*std.error, lower)) |>
+#   mutate(upper = ifelse(is.na(upper), estimate + 2*std.error, upper)) |>
+#   mutate(date = coalesce(as.Date(index), as.Date(slice_id)))
 
 ## ----fig.width=7, fig.height=6, fig.align="center", eval=TRUE-----------------
-beta %>% 
+beta |>
   ggplot(aes(date, estimate)) +
   facet_wrap("term", scales = "free", ncol = 2) +
   geom_ribbon(aes(ymax = upper, ymin = lower, fill = model), alpha = 0.25) +

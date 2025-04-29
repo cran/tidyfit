@@ -35,7 +35,7 @@
 #' data <- dplyr::select(data, -Industry)
 #'
 #' # Within 'regress' function (using low niter for illustration)
-#' fit <- regress(data, Return ~ ., m("tvp", niter = 50, index_col = "Date"))
+#' fit <- regress(data, Return ~ ., m("tvp", niter = 10, index_col = "Date"))
 #' tidyr::unnest(coef(fit), model_info)
 #'
 #' @seealso \code{\link{.fit.bayes}}, \code{\link{.fit.mslm}} and \code{\link{m}} methods
@@ -51,7 +51,7 @@
   self$set_args(display_progress = FALSE, overwrite = FALSE)
 
   if (!is.null(self$args$weights)) {
-    warning("tvp cannot handle weights, weights are ignored")
+    warning("tvp cannot handle weights, weights are ignored", call. = FALSE)
   }
 
   idx_col <- self$args$index_col
@@ -71,6 +71,5 @@
                  append(list(formula = self$formula, data = data), ctr))
   .store_on_self(self, res)
   self$fit_info <- list(index_var = idx_var)
-  self$estimator <- "shrinkTVP::shrinkTVP"
   invisible(self)
 }

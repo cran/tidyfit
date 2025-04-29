@@ -13,25 +13,26 @@ library(tidyfit) # Auto-ML modeling
 
 ## -----------------------------------------------------------------------------
 data <- MASS::Boston
-mod_frame <- data %>% 
-  regress(medv ~ ., m("hfr", kappa = c(0.25, 0.5, 0.75, 1))) %>% 
+mod_frame <- data |> 
+  regress(medv ~ ., m("hfr", kappa = c(0.25, 0.5, 0.75, 1))) |>
   unnest(settings)
+
+# the tidyfit.models frame:
 mod_frame
 
 ## -----------------------------------------------------------------------------
-mod_frame$model_object[[1]]
+# the tidyFit object:
+get_tidyFit(mod_frame, kappa == 1)
 
 ## ----fig.width=7, fig.height=6, fig.align='center'----------------------------
-mod_frame %>% 
-  filter(kappa == 1) %>% 
-  pull(model_object) %>% 
-  .[[1]] %>% 
-  plot(kappa = 1)
+# the underlying model:
+hfr_model <- get_model(mod_frame, kappa == 0.75)
+plot(hfr_model, kappa = 0.75)
 
-## -----------------------------------------------------------------------------
-mod_frame <- mod_frame %>% 
-  mutate(mod = map(model_object, ~.$object))
-mod_frame
+## ----fig.width=7, fig.height=6, fig.align='center'----------------------------
+mod_frame |> 
+  get_tidyFit(kappa == .25) |> 
+  plot(kappa = .25)
 
 ## ----fig.width=7, fig.height=6, fig.align='center'----------------------------
 # Store current par before editing
@@ -39,9 +40,9 @@ old_par <- par()
 
 par(mfrow = c(2, 2))
 par(family = "sans", cex = 0.7)
-mod_frame %>% 
-  arrange(desc(kappa)) %>% 
-  select(model_object, kappa) %>% 
+mod_frame |> 
+  arrange(desc(kappa)) |> 
+  select(model_object, kappa) |> 
   pwalk(~plot(.x, kappa = .y, 
               max_leaf_size = 2, 
               show_details = FALSE))
